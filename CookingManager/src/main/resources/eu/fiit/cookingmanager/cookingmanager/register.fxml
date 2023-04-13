@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.controlsfx.control.textfield.CustomPasswordField?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.LoginController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <CustomTextField fx:id="usernameField" styleClass="form-control" promptText="Username" AnchorPane.topAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+    <CustomPasswordField fx:id="passwordField" styleClass="form-control" promptText="Password" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+    <Button text="Register" styleClass="btn btn-primary btn-block" onAction="#handleLogin" AnchorPane.topAnchor="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+    <Label fx:id="messageLabel" styleClass="text-danger" visible="false" AnchorPane.topAnchor="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+
+</AnchorPane>
