@@ -12,7 +12,10 @@ public class DBController {
     private Dotenv env = null;
 
     public DBController() {
-        this.env = Dotenv.configure().directory("src/main/java/eu/fiit/cookingmanager/cookingmanager/").filename(".env").load();
+        this.env = Dotenv.configure()
+                .directory("C:\\Users\\42191\\OneDrive\\Dokumenty\\Škola\\Škola 6. semester\\VAVA\\vava\\CookingManager\\src\\main\\java\\eu\\fiit\\cookingmanager\\cookingmanager\\")
+                .filename("env")
+                .load();
         this.connURL = String.format("jdbc:postgresql://%s/%s", this.env.get("DB_HOST"), this.env.get("DB_NAME"));
 
     }
