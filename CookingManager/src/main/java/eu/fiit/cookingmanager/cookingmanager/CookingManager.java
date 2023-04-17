@@ -19,11 +19,12 @@ public class CookingManager extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Cooking Manager");
+        stage.setTitle("Log In!");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
-        new DBController();
+        //new DBController();
     }
 
     public static void main(String[] args) {

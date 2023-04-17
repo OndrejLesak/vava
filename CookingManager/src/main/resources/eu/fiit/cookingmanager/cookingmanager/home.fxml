@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.HomeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.HomeController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fffba" height="39.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-      <Button layoutX="528.0" layoutY="7.0" mnemonicParsing="false" text="Log Out" />
-      <Button layoutX="460.0" layoutY="7.0" mnemonicParsing="false" text="Settings" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fe6ff" height="42.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="602.0" />
+      <Button fx:id="btn_loggout" layoutX="541.0" layoutY="7.0" mnemonicParsing="false" text="Log Out" />
+      <Button layoutX="468.0" layoutY="7.0" mnemonicParsing="false" text="Settings" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" layoutX="-299.0" layoutY="-226.0" stroke="BLACK" strokeType="INSIDE" width="578.0" />
       <ComboBox layoutX="119.0" layoutY="57.0" prefWidth="150.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="66.0" layoutX="14.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="578.0" />
@@ -20,7 +18,12 @@
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="7.0" layoutY="7.0" mnemonicParsing="false" text="Create new recipe" />
+      <Button layoutX="340.0" layoutY="7.0" mnemonicParsing="false" text="Create new recipe" />
       <Button layoutX="558.0" layoutY="120.0" mnemonicParsing="false" text="X" />
+      <Label fx:id="lbl_name" layoutX="8.0" layoutY="12.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

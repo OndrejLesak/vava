@@ -1,5 +1,37 @@
 package eu.fiit.cookingmanager.cookingmanager.controller;
 
-public class HomeController {
+import eu.fiit.cookingmanager.cookingmanager.utils.DBUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class HomeController implements Initializable {
+
+    @FXML
+    private Button btn_loggout;
+
+    @FXML
+    private Label lbl_name;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                DBUtils.changeScene(actionEvent, "login.fxml", "Log In!", null);
+            }
+        });
+
+    }
+
+    public void setUserInformation(String username){
+        lbl_name.setText(username);
+    }
 
 }
