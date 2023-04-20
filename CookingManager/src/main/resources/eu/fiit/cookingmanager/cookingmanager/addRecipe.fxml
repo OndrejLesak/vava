@@ -9,12 +9,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.AddRecipeController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fe6ff" height="42.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-      <Button layoutX="533.0" layoutY="8.0" mnemonicParsing="false" text="Log Out" />
-      <Button layoutX="467.0" layoutY="8.0" mnemonicParsing="false" text="Settings" />
+      <Button fx:id="btn_logout" layoutX="533.0" layoutY="8.0" mnemonicParsing="false" text="Log Out" />
+      <Button fx:id="btn_settings" layoutX="467.0" layoutY="8.0" mnemonicParsing="false" text="Settings" />
       <TextField layoutX="128.0" layoutY="58.0" promptText="Recipe Name" />
       <TextField layoutX="285.0" layoutY="173.0" prefHeight="26.0" prefWidth="59.0" promptText="Amount" />
       <ChoiceBox layoutX="128.0" layoutY="94.0" prefWidth="150.0" />
@@ -49,5 +48,12 @@
       <TextField layoutX="127.0" layoutY="132.0" prefHeight="26.0" prefWidth="59.0" promptText="Minutes" />
       <Button layoutX="526.0" layoutY="361.0" mnemonicParsing="false" text="Save" />
       <Button layoutX="455.0" layoutY="361.0" mnemonicParsing="false" text="Discard" />
+      <Button fx:id="btn_xmlFile" layoutX="122.0" layoutY="361.0" mnemonicParsing="false" text="Choose XML File" />
+      <Label layoutX="13.0" layoutY="365.0" text="XML File:">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_xmlFile" layoutX="230.0" layoutY="365.0" text="Label" />
    </children>
 </AnchorPane>

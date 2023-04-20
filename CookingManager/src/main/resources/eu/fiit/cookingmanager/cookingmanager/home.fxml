@@ -20,7 +20,7 @@
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="340.0" layoutY="7.0" mnemonicParsing="false" text="Create new recipe" />
+      <Button fx:id="btn_addRecipe" layoutX="340.0" layoutY="7.0" mnemonicParsing="false" text="Create new recipe" />
       <Label fx:id="lbl_name" layoutX="8.0" layoutY="12.0">
          <font>
             <Font name="System Italic" size="14.0" />
