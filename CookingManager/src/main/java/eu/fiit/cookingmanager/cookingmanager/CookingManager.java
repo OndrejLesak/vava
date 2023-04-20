@@ -1,6 +1,6 @@
 package eu.fiit.cookingmanager.cookingmanager;
 
-import eu.fiit.cookingmanager.cookingmanager.controller.DBController;
+import eu.fiit.cookingmanager.cookingmanager.utils.DBUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +24,7 @@ public class CookingManager extends Application {
         stage.setResizable(false);
         stage.show();
 
-        //new DBController();
+        new DBUtils().DBController();
     }
 
     public static void main(String[] args) {

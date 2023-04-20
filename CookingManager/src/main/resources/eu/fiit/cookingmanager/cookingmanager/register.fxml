@@ -4,53 +4,95 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.RegisterController">
-   <Label layoutX="106.0" layoutY="87.0" text="Username:">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.RegisterController">
+   <Label layoutX="110.0" layoutY="121.0" text="Username:">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <Label layoutX="108.0" layoutY="143.0" text="Password:">
+   <Label layoutX="112.0" layoutY="152.0" text="Password:">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <TextField fx:id="tf_username" layoutX="287.0" layoutY="86.0" promptText="username">
+   <TextField fx:id="tf_username" layoutX="291.0" layoutY="119.0" promptText="username">
       <font>
          <Font size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="btn_signup" layoutX="273.0" layoutY="264.0" mnemonicParsing="false" text="Sign Up">
+   <Button fx:id="btn_signup" layoutX="274.0" layoutY="338.0" mnemonicParsing="false" text="Sign Up">
       <font>
          <Font name="System Bold Italic" size="14.0" />
       </font>
    </Button>
-   <Label layoutX="208.0" layoutY="314.0" text="Already registered?">
+   <Label layoutX="208.0" layoutY="368.0" text="Already registered?">
       <font>
          <Font name="System Italic" size="14.0" />
       </font>
    </Label>
-   <Button fx:id="btn_login" layoutX="332.0" layoutY="309.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Log In!" textFill="#0808f8" underline="true">
+   <Button fx:id="btn_login" layoutX="333.0" layoutY="363.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Log In!" textFill="#0808f8" underline="true">
       <font>
          <Font size="14.0" />
       </font>
    </Button>
-   <Label layoutX="108.0" layoutY="194.0" text="Confirm password:">
+   <Label layoutX="111.0" layoutY="183.0" text="Confirm password:">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <PasswordField fx:id="pf_password" layoutX="287.0" layoutY="142.0" promptText="password">
+   <PasswordField fx:id="pf_password" layoutX="291.0" layoutY="150.0" promptText="password">
       <font>
          <Font size="14.0" />
       </font>
    </PasswordField>
-   <PasswordField fx:id="pf_confpassword" layoutX="287.0" layoutY="193.0" promptText="password">
+   <PasswordField fx:id="pf_confpassword" layoutX="291.0" layoutY="181.0" promptText="confirm password">
       <font>
          <Font size="14.0" />
       </font>
    </PasswordField>
+   <ImageView fitHeight="119.0" fitWidth="173.0" layoutX="214.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../../assets/bezpsankovci-logo.png" />
+      </image>
+   </ImageView>
+   <Label fx:id="lbl_error" contentDisplay="CENTER" layoutX="292.0" layoutY="314.0" textFill="RED">
+      <font>
+         <Font name="System Italic" size="13.0" />
+      </font>
+   </Label>
+   <Label layoutX="113.0" layoutY="214.0" text="Name:">
+      <font>
+         <Font name="System Bold Italic" size="18.0" />
+      </font>
+   </Label>
+   <Label layoutX="110.0" layoutY="245.0" text="Surname:">
+      <font>
+         <Font name="System Bold Italic" size="18.0" />
+      </font>
+   </Label>
+   <Label layoutX="110.0" layoutY="279.0" text="Email:">
+      <font>
+         <Font name="System Bold Italic" size="18.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tf_name" layoutX="291.0" layoutY="212.0" promptText="name">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="tf_surname" layoutX="291.0" layoutY="243.0" promptText="surname">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="tf_email" layoutX="291.0" layoutY="278.0" promptText="email">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </TextField>
 </AnchorPane>
