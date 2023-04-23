@@ -21,6 +21,9 @@ public class HomeController implements Initializable {
     private Button btn_addRecipe;
 
     @FXML
+    private Button btn_settings;
+
+    @FXML
     private Label lbl_name;
 
     @FXML
@@ -32,7 +35,7 @@ public class HomeController implements Initializable {
         btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", "Log In!", null);
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), null, resourceBundle);
             }
         });
 
@@ -40,7 +43,14 @@ public class HomeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "addRecipe.fxml", "Add recipe", null);
+                DBUtils.changeScene(actionEvent, "addRecipe.fxml", resourceBundle.getString("add_recipe_title"), null, resourceBundle);
+            }
+        });
+
+        btn_settings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                DBUtils.changeScene(actionEvent, "settings.fxml", resourceBundle.getString("settings_title"), null, resourceBundle);
             }
         });
 

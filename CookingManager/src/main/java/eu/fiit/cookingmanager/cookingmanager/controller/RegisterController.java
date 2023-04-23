@@ -41,9 +41,9 @@ public class RegisterController implements Initializable {
             public void handle(ActionEvent actionEvent) {
 
                 if (!pf_password.getText().equals(pf_confpassword.getText())) {
-                    lbl_error.setText("Passwords doesn't match!");
+                    lbl_error.setText(resourceBundle.getString("password_notmatch"));
                 } else if (tf_name.getText().equals("")  || tf_surname.getText().equals("")  || tf_email.getText().equals("") || tf_username.getText().equals("") || pf_password.getText().equals("")) {
-                    lbl_error.setText("Please fill all fields!");
+                    lbl_error.setText(resourceBundle.getString("fields_notfilled"));
                 }
 
                 try {
@@ -56,7 +56,7 @@ public class RegisterController implements Initializable {
 
                     if (rs != null){
                         System.out.println(rs);
-                        lbl_error.setText("User with this email already exists!");
+                        lbl_error.setText(resourceBundle.getString("email_existing"));
                     }
 
                     query = "SELECT * FROM public.account WHERE username=(?)";
@@ -66,7 +66,7 @@ public class RegisterController implements Initializable {
 
                     if (rs != null){
                         System.out.println(rs);
-                        lbl_error.setText("User with this username already exists!");
+                        lbl_error.setText(resourceBundle.getString("user_existing"));
                     }
 
                     // login pass name surname email
@@ -100,7 +100,7 @@ public class RegisterController implements Initializable {
                     pstmt.executeUpdate();
 
                     DBUtils.dbDisconnect(conn);
-                    DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", tf_username.getText());
+                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), tf_username.getText(), resourceBundle);
 
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -112,7 +112,7 @@ public class RegisterController implements Initializable {
         btn_login.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", "Log In!", null);
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), null, resourceBundle);
             }
 
         });

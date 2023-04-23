@@ -10,27 +10,27 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.RegisterController">
-   <Label layoutX="110.0" layoutY="121.0" text="Username:">
+   <Label layoutX="110.0" layoutY="121.0" text="%username_login">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <Label layoutX="112.0" layoutY="152.0" text="Password:">
+   <Label layoutX="112.0" layoutY="152.0" text="%pass_login">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <TextField fx:id="tf_username" layoutX="291.0" layoutY="119.0" promptText="username">
+   <TextField fx:id="tf_username" layoutX="291.0" layoutY="119.0" promptText="%username_field">
       <font>
          <Font size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="btn_signup" layoutX="274.0" layoutY="338.0" mnemonicParsing="false" text="Sign Up">
+   <Button fx:id="btn_signup" layoutX="274.0" layoutY="338.0" mnemonicParsing="false" text="%sign_up_title">
       <font>
          <Font name="System Bold Italic" size="14.0" />
       </font>
    </Button>
-   <Label layoutX="208.0" layoutY="368.0" text="Already registered?">
+   <Label layoutX="208.0" layoutY="368.0" text="%already_reg">
       <font>
          <Font name="System Italic" size="14.0" />
       </font>
@@ -40,17 +40,17 @@
          <Font size="14.0" />
       </font>
    </Button>
-   <Label layoutX="111.0" layoutY="183.0" text="Confirm password:">
+   <Label layoutX="111.0" layoutY="183.0" text="%conf_passwd">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <PasswordField fx:id="pf_password" layoutX="291.0" layoutY="150.0" promptText="password">
+   <PasswordField fx:id="pf_password" layoutX="291.0" layoutY="150.0" promptText="%password_field">
       <font>
          <Font size="14.0" />
       </font>
    </PasswordField>
-   <PasswordField fx:id="pf_confpassword" layoutX="291.0" layoutY="181.0" promptText="confirm password">
+   <PasswordField fx:id="pf_confpassword" layoutX="291.0" layoutY="181.0" promptText="%conf_passwd_field">
       <font>
          <Font size="14.0" />
       </font>
@@ -65,32 +65,32 @@
          <Font name="System Italic" size="13.0" />
       </font>
    </Label>
-   <Label layoutX="113.0" layoutY="214.0" text="Name:">
+   <Label layoutX="113.0" layoutY="214.0" text="%username_login">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <Label layoutX="110.0" layoutY="245.0" text="Surname:">
+   <Label layoutX="110.0" layoutY="245.0" text="%surname">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <Label layoutX="110.0" layoutY="279.0" text="Email:">
+   <Label layoutX="110.0" layoutY="279.0" text="%email">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <TextField fx:id="tf_name" layoutX="291.0" layoutY="212.0" promptText="name">
+   <TextField fx:id="tf_name" layoutX="291.0" layoutY="212.0" promptText="%username_field">
       <font>
          <Font size="14.0" />
       </font>
    </TextField>
-   <TextField fx:id="tf_surname" layoutX="291.0" layoutY="243.0" promptText="surname">
+   <TextField fx:id="tf_surname" layoutX="291.0" layoutY="243.0" promptText="%surname_field">
       <font>
          <Font size="14.0" />
       </font>
    </TextField>
-   <TextField fx:id="tf_email" layoutX="291.0" layoutY="278.0" promptText="email">
+   <TextField fx:id="tf_email" layoutX="291.0" layoutY="278.0" promptText="%email_field">
       <font>
          <Font size="14.0" />
       </font>

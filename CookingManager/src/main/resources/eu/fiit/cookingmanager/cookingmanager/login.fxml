@@ -10,37 +10,37 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.LoginController">
-   <Label layoutX="145.0" layoutY="126.0" text="Username:">
+   <Label layoutX="145.0" layoutY="126.0" text="%username_login">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <Label layoutX="147.0" layoutY="180.0" text="Password:">
+   <Label layoutX="147.0" layoutY="180.0" text="%pass_login">
       <font>
          <Font name="System Bold Italic" size="18.0" />
       </font>
    </Label>
-   <TextField fx:id="tf_username" layoutX="279.0" layoutY="125.0" promptText="username">
+   <TextField fx:id="tf_username" layoutX="279.0" layoutY="125.0" promptText="%username_field">
       <font>
          <Font size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="btn_login" layoutX="271.0" layoutY="279.0" mnemonicParsing="false" text="Log In">
+   <Button fx:id="btn_login" layoutX="271.0" layoutY="279.0" mnemonicParsing="false" text="%login">
       <font>
          <Font name="System Bold Italic" size="14.0" />
       </font>
    </Button>
-   <Button fx:id="btn_signup" layoutX="312.0" layoutY="320.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Sign Up!" textFill="#0808f8">
+   <Button fx:id="btn_signup" layoutX="312.0" layoutY="320.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="%signup" textFill="#0808f8">
       <font>
          <Font size="14.0" />
       </font>
    </Button>
-   <Label layoutX="184.0" layoutY="325.0" text="Already registered?">
+   <Label layoutX="184.0" layoutY="325.0" text="%already_reg">
       <font>
          <Font name="System Italic" size="14.0" />
       </font>
    </Label>
-   <PasswordField fx:id="pf_password" layoutX="279.0" layoutY="179.0" promptText="password">
+   <PasswordField fx:id="pf_password" layoutX="279.0" layoutY="179.0" promptText="%password_field">
       <font>
          <Font size="14.0" />
       </font>
