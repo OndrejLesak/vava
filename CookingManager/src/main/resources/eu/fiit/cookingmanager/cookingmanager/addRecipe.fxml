@@ -47,7 +47,7 @@
       </Label>
       <TextField layoutX="127.0" layoutY="132.0" prefHeight="26.0" prefWidth="59.0" promptText="Minutes" />
       <Button layoutX="526.0" layoutY="361.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="455.0" layoutY="361.0" mnemonicParsing="false" text="Discard" />
+      <Button fx:id="btn_discard" layoutX="455.0" layoutY="361.0" mnemonicParsing="false" text="Discard"/>
       <Button fx:id="btn_xmlFile" layoutX="122.0" layoutY="361.0" mnemonicParsing="false" text="Choose XML File" />
       <Label layoutX="13.0" layoutY="365.0" text="XML File:">
          <font>

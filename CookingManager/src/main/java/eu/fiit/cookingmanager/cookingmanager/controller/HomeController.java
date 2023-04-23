@@ -25,6 +25,10 @@ public class HomeController implements Initializable {
 
     @FXML
     private VBox v_box;
+    public String username ;
+
+    public void setUserInformation(String username){lbl_name.setText(username);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,14 +44,12 @@ public class HomeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "addRecipe.fxml", "Add recipe", null);
+                DBUtils.changeScene(actionEvent, "addRecipe.fxml", "Add recipe",null );
             }
         });
 
     }
 
-    public void setUserInformation(String username){
-        lbl_name.setText(username);
-    }
+
 
 }

@@ -1,5 +1,6 @@
 package eu.fiit.cookingmanager.cookingmanager.controller;
 
+
 import eu.fiit.cookingmanager.cookingmanager.utils.DBUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +25,8 @@ public class AddRecipeController implements Initializable {
     private Button btn_settings;
     @FXML
     private Label lbl_xmlFile;
-
+    @FXML
+    private Button btn_discard;
     FileChooser fileChooser = new FileChooser();
     File selectedFile = null;
 
@@ -56,6 +58,14 @@ public class AddRecipeController implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 DBUtils.changeScene(actionEvent, "settings.fxml", "Log In!", null);
+            }
+        });
+
+        btn_discard.setOnAction(new EventHandler<ActionEvent>(){
+
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", GlobalVariableUser.getValue());
             }
         });
 
