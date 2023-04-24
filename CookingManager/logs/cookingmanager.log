@@ -37,3 +37,6 @@
 2023-04-24 20:58:24 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
   Position: 35
+2023-04-24 21:11:30 ERROR DBUtils:90 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
+/C:/Users/ahlad/Desktop/LS%202023/VAVA/VAVA_PROJECT/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml
+
