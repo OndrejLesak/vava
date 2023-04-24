@@ -10,7 +10,7 @@ public class Main {
 
             // load .env file with database connection details
             env = Dotenv.configure()
-                    .directory("/Users/ondrejlesak/Documents/school/6th semester/VAVA/vava/project/jdbc_cs/src/main/java/")
+                    .directory("C:\\FIIT\\8-semester\\VAVA\\project\\vava\\project\\jdbc_cs\\src\\main\\java\\")
                     .filename(".env")
                     .load();
 

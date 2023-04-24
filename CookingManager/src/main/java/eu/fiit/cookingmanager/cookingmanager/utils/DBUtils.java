@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -46,7 +47,9 @@ public class DBUtils {
 
         }
         catch (SQLException sqlException) {
-            System.err.println("Could not establish database connection");
+            //System.err.println("Could not establish database connection \nDBUSER: " + this.env.get("DB_USER") + "\nDBPASS: " + this.env.get("DB_PASS") + "\nURL: " + this.connURL.toString());
+            sqlException.printStackTrace();
+
         }
 
         return this.conn;
@@ -66,12 +69,12 @@ public class DBUtils {
 
 
 
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, ResourceBundle resourceBundle) {
         Parent root = null;
 
         if (username != null) {
             try{
-                FXMLLoader loader = new FXMLLoader(CookingManager.class.getResource(fxmlFile));
+                FXMLLoader loader = new FXMLLoader(CookingManager.class.getResource(fxmlFile), resourceBundle);
                 root = loader.load();
                 HomeController homeController = loader.getController();
                 homeController.setUserInformation(username);
@@ -82,14 +85,14 @@ public class DBUtils {
         }
         else{
             try{
-                root = FXMLLoader.load(CookingManager.class.getResource(fxmlFile));
+                root = FXMLLoader.load(CookingManager.class.getResource(fxmlFile), resourceBundle);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 

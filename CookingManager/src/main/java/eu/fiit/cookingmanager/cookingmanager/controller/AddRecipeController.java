@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddRecipeController implements Initializable {
@@ -22,7 +23,7 @@ public class AddRecipeController implements Initializable {
     @FXML
     private Button btn_logout;
     @FXML
-    private Button btn_settings;
+    private Button btn_back_home;
     @FXML
     private Label lbl_xmlFile;
     @FXML
@@ -32,8 +33,6 @@ public class AddRecipeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
 
         btn_xmlFile.setOnAction(new EventHandler<ActionEvent>(){
             @Override
@@ -50,14 +49,14 @@ public class AddRecipeController implements Initializable {
         btn_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", "Log In!", null);
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), null, resourceBundle);
             }
         });
 
-        btn_settings.setOnAction(new EventHandler<ActionEvent>() {
+        btn_back_home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "settings.fxml", "Log In!", null);
+                DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), null, resourceBundle);
             }
         });
 
@@ -65,7 +64,7 @@ public class AddRecipeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", GlobalVariableUser.getValue());
+                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", GlobalVariableUser.getValue(), resourceBundle);
             }
         });
 

@@ -36,7 +36,7 @@ public class HomeController implements Initializable {
         btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", "Log In!", null);
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), null, resourceBundle);
             }
         });
 
@@ -44,7 +44,7 @@ public class HomeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "addRecipe.fxml", "Add recipe",null );
+                DBUtils.changeScene(actionEvent, "addRecipe.fxml", resourceBundle.getString("add_recipe_title"), null, resourceBundle);
             }
         });
 

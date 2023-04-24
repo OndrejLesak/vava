@@ -35,10 +35,7 @@ public class LoginController implements Initializable {
         btn_login.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //tu sa logguje, ejkejej čekuješ db ci tam je taky juzer
-                //if (juzer exists) {
-
-
+                boolean isAuthenticated = false;
 
                 try {
                     Connection conn = new DBUtils().dbConnect();
@@ -49,30 +46,30 @@ public class LoginController implements Initializable {
                     pstmt.setString(1, tf_username.getText());
                     ResultSet rs = pstmt.executeQuery();
 
-                    while(rs.next()){
+                    while (rs.next()) {
                         String password = rs.getString("password");
-                        if (password.equals(pf_password.getText())){
-                            DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", tf_username.getText());
-                        }
-                        else{
-                            lbl_error.setText("These credentials are incorrect!");
+                        if (password.equals(pf_password.getText())) {
+                            isAuthenticated = true;
+                            break;
                         }
                     }
-                    lbl_error.setText("These credentials are incorrect!");
-
 
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
 
+                if (isAuthenticated) {
+                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), tf_username.getText(), resourceBundle);
+                } else {
+                    lbl_error.setText(resourceBundle.getString("credentials_mismatch"));
+                }
             }
-
         });
 
         btn_signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "register.fxml", "Sign Up!", null);
+                DBUtils.changeScene(actionEvent, "register.fxml", resourceBundle.getString("sign_up_title"), null, resourceBundle);
             }
         });
 

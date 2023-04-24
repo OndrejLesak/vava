@@ -6,37 +6,37 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.Recipe">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.Recipe">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fe6ff" height="44.0" stroke="BLACK" strokeType="INSIDE" width="619.0" />
-      <Button layoutX="474.0" layoutY="9.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Settings" />
-      <Button layoutX="545.0" layoutY="9.0" mnemonicParsing="false" text="Log Out" />
-      <Label layoutX="23.0" layoutY="71.0" text="Recipe name:">
+      <Button layoutX="474.0" layoutY="9.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="%settings" />
+      <Button layoutX="545.0" layoutY="9.0" mnemonicParsing="false" text="%logout" />
+      <Label layoutX="23.0" layoutY="71.0" text="%recipe_name_choose">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="107.0" text="Type of recipe:">
+      <Label layoutX="22.0" layoutY="107.0" text="%recipe_type">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="21.0" layoutY="145.0" text="Time to cook:">
+      <Label layoutX="21.0" layoutY="145.0" text="%recipe_time">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="186.0" text="Ingredients:">
+      <Label layoutX="23.0" layoutY="186.0" text="%ingredients">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="256.0" text="Steps:">
+      <Label layoutX="25.0" layoutY="256.0" text="%steps">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="13.0" layoutY="9.0" mnemonicParsing="false" text="Back" />
+      <Button layoutX="13.0" layoutY="9.0" mnemonicParsing="false" text="%back" />
       <Label layoutX="118.0" layoutY="72.0" prefHeight="18.0" prefWidth="154.0">
          <font>
             <Font size="14.0" />
