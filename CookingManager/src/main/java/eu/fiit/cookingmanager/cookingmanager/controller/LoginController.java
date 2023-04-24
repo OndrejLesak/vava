@@ -1,17 +1,17 @@
 package eu.fiit.cookingmanager.cookingmanager.controller;
+
 import eu.fiit.cookingmanager.cookingmanager.utils.DBUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +27,8 @@ public class LoginController implements Initializable {
     @FXML private Button btn_signup;
     @FXML private Button btn_login;
     @FXML private Label lbl_error;
+
+    private final static Logger logger = LogManager.getLogger(LoginController.class);
 
 
     @Override
@@ -56,7 +58,7 @@ public class LoginController implements Initializable {
                     }
 
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    logger.error(LoginController.class.getName() + " || " + e.getMessage());
                 }
 
                 if (isAuthenticated) {

@@ -7,6 +7,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -28,6 +34,8 @@ public class RegisterController implements Initializable {
     @FXML private Button btn_login;
     @FXML private Label lbl_error;
     @FXML private ChoiceBox chbox_type;
+
+    private final static Logger logger = LogManager.getLogger(RegisterController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,8 +60,9 @@ public class RegisterController implements Initializable {
                     Connection conn = new DBUtils().dbConnect();
 
                     String query = "SELECT * FROM public.user WHERE email=(?)";
+
                     PreparedStatement pstmt = conn.prepareStatement(query);
-                    pstmt.setString(1, tf_email.getText());
+                    pstmt.setString(1, tf_email.getText().trim());
                     ResultSet rs = pstmt.executeQuery();
 
                     if (rs != null){
@@ -111,8 +120,42 @@ public class RegisterController implements Initializable {
 
                     }
 
+                    // login pass name surname email
+                    query = "INSERT INTO public.user(name, surname, email, user_type_id) VALUES(?, ?, ?, ?)";
+                    pstmt = conn.prepareStatement(query);
+
+                    //pstmt.setInt(1, 8);
+                    pstmt.setString(1, tf_name.getText().trim());
+                    pstmt.setString(2, tf_surname.getText().trim());
+                    pstmt.setString(3, tf_email.getText().trim());
+                    pstmt.setInt(4, 1);  //1 je normalny guest
+
+                    pstmt.executeUpdate();
+
+                    query = "SELECT * FROM public.user WHERE email=(?)";
+                    pstmt = conn.prepareStatement(query);
+                    pstmt.setString(1, tf_email.getText().trim());
+                    rs = pstmt.executeQuery();
+
+                    rs.next();
+                    int user_id = rs.getInt("id");
+
+                    query = "INSERT INTO public.account(user_id, login, password) VALUES(?, ?, ?)";
+                    pstmt = conn.prepareStatement(query);
+
+                    //pstmt.setInt(1, 2);
+                    pstmt.setInt(1, user_id);
+                    pstmt.setString(2, tf_username.getText().trim());
+                    pstmt.setString(3, pf_password.getText().trim());
+
+                    pstmt.executeUpdate();
+
+                    DBUtils.dbDisconnect(conn);
+                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), tf_username.getText(), resourceBundle);
+
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    logger.error(RegisterController.class.getName() + " || " + e.getMessage());
+
                 }
             }
         });
@@ -123,7 +166,6 @@ public class RegisterController implements Initializable {
             public void handle(ActionEvent actionEvent) {
                 DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), null, resourceBundle);
             }
-
         });
 
     }

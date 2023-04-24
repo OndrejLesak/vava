@@ -8,19 +8,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class CookingManager extends Application {
+
 
     @Override
     public void start(Stage stage) throws IOException {
         Locale currentLocale = Locale.getDefault();
         ResourceBundle messages = ResourceBundle.getBundle("properties.messages", currentLocale);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"), messages);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"), messages);
 
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

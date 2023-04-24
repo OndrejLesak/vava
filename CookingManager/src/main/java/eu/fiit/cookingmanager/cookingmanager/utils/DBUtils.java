@@ -15,32 +15,33 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+
 
 public class DBUtils {
-
-    private final String driver = "org.postgresql.Driver";
     private Connection conn = null;
     private Dotenv env = null;
     private String connURL = null;
 
+    private static final Logger logger = LogManager.getLogger(DBUtils.class);
+
 
     public void DBController() {
-        this.env = Dotenv.configure()
-                //.directory("C:\\Users\\42191\\OneDrive\\Dokumenty\\Škola\\Škola 6. semester\\VAVA\\vava\\CookingManager\\src\\main\\java\\eu\\fiit\\cookingmanager\\cookingmanager\\")
-                .directory("C:\\Users\\ahlad\\Desktop\\LS 2023\\VAVA\\VAVA_PROJECT\\vava\\CookingManager\\src\\main\\java\\eu\\fiit\\cookingmanager\\cookingmanager\\")
-                .filename("env")
-                .load();
+        this.env = Dotenv.load();
         this.connURL = String.format("jdbc:postgresql://%s/%s", this.env.get("DB_HOST"), this.env.get("DB_NAME"));
-
     }
+
 
     public Connection dbConnect() {
         DBController();
         try {
-            Class.forName(this.driver);
+            String driver = "org.postgresql.Driver";
+            Class.forName(driver);
         }
         catch(ClassNotFoundException classNotFoundException) {
-            System.err.println("Could not set database driver");
+            logger.error(DBUtils.class.getName() + " || " + classNotFoundException.getMessage());
         }
 
         try {
@@ -48,9 +49,7 @@ public class DBUtils {
 
         }
         catch (SQLException sqlException) {
-            //System.err.println("Could not establish database connection \nDBUSER: " + this.env.get("DB_USER") + "\nDBPASS: " + this.env.get("DB_PASS") + "\nURL: " + this.connURL.toString());
-            sqlException.printStackTrace();
-
+            logger.error(DBUtils.class.getName() + " || " + sqlException.getMessage());
         }
 
         return this.conn;
@@ -63,11 +62,11 @@ public class DBUtils {
             }
         }
         catch(SQLException sqlException) {
-            System.err.println("Error while trying to disconnect database");
+            logger.error(DBUtils.class.getName() + " || " + sqlException.getMessage());
+
         }
 
     }
-
 
 
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, ResourceBundle resourceBundle) {
@@ -81,18 +80,20 @@ public class DBUtils {
                 homeController.setUserInformation(username);
 
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(DBUtils.class.getName() + " || " + e.getMessage());
             }
         }
         else{
             try{
                 root = FXMLLoader.load(CookingManager.class.getResource(fxmlFile), resourceBundle);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(DBUtils.class.getName() + " || " + e.getMessage());
             }
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);
+
+        assert root != null;
         stage.setScene(new Scene(root));
         stage.show();
     }
