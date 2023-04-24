@@ -103,6 +103,7 @@ public class RegisterController implements Initializable {
 
                             rs.next();
                             int user_id = rs.getInt("id");
+                            GlobalVariableUser.setUser(user_id, conn);
 
                             query = "INSERT INTO public.account(id, user_id, login, password) VALUES(nextval('account_id_seq'), ?, ?, ?)";
                             pstmt = conn.prepareStatement(query);

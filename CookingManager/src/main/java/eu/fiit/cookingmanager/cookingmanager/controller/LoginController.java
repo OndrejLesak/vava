@@ -11,7 +11,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,10 +48,12 @@ public class LoginController implements Initializable {
                     ResultSet rs = pstmt.executeQuery();
 
                     while (rs.next()) {
-                        GlobalVariableUser.setValue(tf_username.getText());
+                        int user_id = rs.getInt("user_id");
                         String password = rs.getString("password");
                         if (password.equals(pf_password.getText())) {
                             isAuthenticated = true;
+                            GlobalVariableUser.setUser(user_id, conn);
+                            DBUtils.dbDisconnect(conn);
                             break;
                         }
                     }

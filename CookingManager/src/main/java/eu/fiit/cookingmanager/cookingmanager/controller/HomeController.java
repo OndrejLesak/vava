@@ -24,17 +24,10 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
 
-    @FXML
-    private Button btn_loggout;
-
-    @FXML
-    private Button btn_addRecipe;
-
-    @FXML
-    private Label lbl_name;
-
-    @FXML
-    private VBox recipeList;
+    @FXML private Button btn_loggout;
+    @FXML private Button btn_addRecipe;
+    @FXML private Label lbl_name;
+    @FXML private VBox recipeList;
 
     public String username ;
 
@@ -46,6 +39,11 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        if (GlobalVariableUser.getType() == 1){
+            btn_addRecipe.setVisible(false);
+        }
+
+
         btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -54,7 +52,6 @@ public class HomeController implements Initializable {
         });
 
         btn_addRecipe.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent actionEvent) {
                 DBUtils.changeScene(actionEvent, "addRecipe.fxml", resourceBundle.getString("add_recipe_title"), null, resourceBundle);

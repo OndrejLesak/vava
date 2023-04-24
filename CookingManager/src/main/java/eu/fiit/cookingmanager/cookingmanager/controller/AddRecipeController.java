@@ -18,16 +18,11 @@ import java.util.ResourceBundle;
 
 public class AddRecipeController implements Initializable {
 
-    @FXML
-    private Button btn_xmlFile;
-    @FXML
-    private Button btn_logout;
-    @FXML
-    private Button btn_back_home;
-    @FXML
-    private Label lbl_xmlFile;
-    @FXML
-    private Button btn_discard;
+    @FXML private Button btn_xmlFile;
+    @FXML private Button btn_logout;
+    @FXML private Button btn_back_home;
+    @FXML private Label lbl_xmlFile;
+    @FXML private Button btn_discard;
     FileChooser fileChooser = new FileChooser();
     File selectedFile = null;
 
@@ -56,7 +51,7 @@ public class AddRecipeController implements Initializable {
         btn_back_home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"),  GlobalVariableUser.getValue(), resourceBundle);
+                DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"),  GlobalVariableUser.getName(), resourceBundle);
             }
         });
 
@@ -64,7 +59,7 @@ public class AddRecipeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", GlobalVariableUser.getValue(), resourceBundle);
+                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", GlobalVariableUser.getName(), resourceBundle);
             }
         });
 
