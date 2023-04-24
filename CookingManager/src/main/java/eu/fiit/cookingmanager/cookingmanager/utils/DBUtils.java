@@ -26,7 +26,8 @@ public class DBUtils {
 
     public void DBController() {
         this.env = Dotenv.configure()
-                .directory("C:\\Users\\42191\\OneDrive\\Dokumenty\\Škola\\Škola 6. semester\\VAVA\\vava\\CookingManager\\src\\main\\java\\eu\\fiit\\cookingmanager\\cookingmanager\\")
+                //.directory("C:\\Users\\42191\\OneDrive\\Dokumenty\\Škola\\Škola 6. semester\\VAVA\\vava\\CookingManager\\src\\main\\java\\eu\\fiit\\cookingmanager\\cookingmanager\\")
+                .directory("C:\\Users\\ahlad\\Desktop\\LS 2023\\VAVA\\VAVA_PROJECT\\vava\\CookingManager\\src\\main\\java\\eu\\fiit\\cookingmanager\\cookingmanager\\")
                 .filename("env")
                 .load();
         this.connURL = String.format("jdbc:postgresql://%s/%s", this.env.get("DB_HOST"), this.env.get("DB_NAME"));

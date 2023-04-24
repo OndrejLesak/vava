@@ -47,6 +47,7 @@ public class LoginController implements Initializable {
                     ResultSet rs = pstmt.executeQuery();
 
                     while (rs.next()) {
+                        GlobalVariableUser.setValue(tf_username.getText());
                         String password = rs.getString("password");
                         if (password.equals(pf_password.getText())) {
                             isAuthenticated = true;
