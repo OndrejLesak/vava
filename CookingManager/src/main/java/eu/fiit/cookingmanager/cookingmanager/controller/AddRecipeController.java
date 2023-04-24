@@ -29,6 +29,7 @@ public class AddRecipeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         btn_xmlFile.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -44,14 +45,14 @@ public class AddRecipeController implements Initializable {
         btn_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), null, resourceBundle);
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), resourceBundle);
             }
         });
 
         btn_back_home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"),  GlobalVariableUser.getName(), resourceBundle);
+                DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
             }
         });
 
@@ -59,7 +60,7 @@ public class AddRecipeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", GlobalVariableUser.getName(), resourceBundle);
+                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
             }
         });
 

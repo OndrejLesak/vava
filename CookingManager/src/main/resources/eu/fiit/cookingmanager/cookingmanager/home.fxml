@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.HomeController">
+<?import javafx.scene.control.ScrollPane?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.HomeController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fe6ff" height="48.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
-      <HBox layoutX="1089.0" layoutY="10.0" prefHeight="25.0" prefWidth="96.0">
+      <HBox layoutX="1089.0" layoutY="10.0" prefHeight="25.0" prefWidth="96.0" spacing="20.0" AnchorPane.rightAnchor="100.0">
          <children>
-            <Button fx:id="btn_addRecipe" mnemonicParsing="false" text="%create_recipe" wrapText="true" />
+            <Button fx:id="btn_addRecipe" mnemonicParsing="false" style="-fx-cursor: hand;" text="%create_recipe" wrapText="true" />
          </children>
       </HBox>
-      <Button fx:id="btn_loggout" layoutX="1205.0" layoutY="10.0" mnemonicParsing="false" text="%logout" />
+      <Button fx:id="btn_loggout" layoutX="1205.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" AnchorPane.rightAnchor="20.0" />
 
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" layoutX="-299.0" layoutY="-226.0" stroke="BLACK" strokeType="INSIDE" width="578.0" />
       <HBox layoutX="14.0" layoutY="58.0" spacing="8">
@@ -29,6 +34,8 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <VBox fx:id="recipeList" layoutX="142.0" layoutY="108.0" prefHeight="568.0" prefWidth="996.0" />
+      <ScrollPane fx:id="recipeScroll" layoutX="184.0" layoutY="128.0" prefHeight="499.0" prefWidth="938.0">
+         <VBox fx:id="recipeList" minHeight="499.0" minWidth="936.0" spacing="5"/>
+      </ScrollPane>
    </children>
 </AnchorPane>

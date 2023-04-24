@@ -58,12 +58,12 @@ public class LoginController implements Initializable {
                         }
                     }
 
-                } catch (SQLException e) {
+                } catch (SQLException | NullPointerException e) {
                     logger.error(LoginController.class.getName() + " || " + e.getMessage());
                 }
 
                 if (isAuthenticated) {
-                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), tf_username.getText(), resourceBundle);
+                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
                 } else {
                     lbl_error.setText(resourceBundle.getString("credentials_mismatch"));
                 }
@@ -73,7 +73,7 @@ public class LoginController implements Initializable {
         btn_signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "register.fxml", resourceBundle.getString("sign_up_title"), null, resourceBundle);
+                DBUtils.changeScene(actionEvent, "register.fxml", resourceBundle.getString("sign_up_title"), resourceBundle);
             }
         });
 

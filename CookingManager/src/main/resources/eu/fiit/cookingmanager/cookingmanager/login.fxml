@@ -25,12 +25,12 @@
          <Font size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="btn_login" layoutX="606.0" layoutY="480.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="134.0" text="%login">
+   <Button fx:id="btn_login" layoutX="606.0" layoutY="480.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="134.0" style="-fx-cursor: hand;" text="%login">
       <font>
          <Font name="System Bold Italic" size="14.0" />
       </font>
    </Button>
-   <Button fx:id="btn_signup" layoutX="701.0" layoutY="597.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="%signup" textFill="#0808f8">
+   <Button fx:id="btn_signup" layoutX="701.0" layoutY="597.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="%signup" textFill="#0808f8">
       <font>
          <Font size="14.0" />
       </font>
