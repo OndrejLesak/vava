@@ -57,7 +57,7 @@ public class LoginController implements Initializable {
                         }
                     }
 
-                } catch (SQLException e) {
+                } catch (SQLException | NullPointerException e) {
                     logger.error(LoginController.class.getName() + " || " + e.getMessage());
                 }
 

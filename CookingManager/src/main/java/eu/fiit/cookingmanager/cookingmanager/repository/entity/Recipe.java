@@ -2,11 +2,20 @@ package eu.fiit.cookingmanager.cookingmanager.repository.entity;
 
 public class Recipe {
 
+    private int id;
     private String name;
     private int timeToCook;
     private String process;
     private int accountId;
-    private int foodTypeId;
+    private String foodType;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -40,11 +49,11 @@ public class Recipe {
         this.accountId = accountId;
     }
 
-    public int getFoodTypeId() {
-        return foodTypeId;
+    public String getFoodType() {
+        return foodType;
     }
 
-    public void setFoodTypeId(int foodTypeId) {
-        this.foodTypeId = foodTypeId;
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
     }
 }

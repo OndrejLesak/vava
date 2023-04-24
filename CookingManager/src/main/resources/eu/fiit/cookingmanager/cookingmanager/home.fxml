@@ -29,6 +29,8 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <VBox fx:id="recipeList" layoutX="142.0" layoutY="108.0" prefHeight="568.0" prefWidth="996.0" />
+      <ScrollPane fx:id="recipeScroll" layoutX="184.0" layoutY="128.0" prefHeight="499.0" prefWidth="938.0">
+         <VBox fx:id="recipeList" minHeight="499.0" minWidth="936.0" spacing="5"/>
+      </ScrollPane>
    </children>
 </AnchorPane>

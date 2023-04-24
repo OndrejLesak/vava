@@ -1,0 +1,30 @@
+2023-04-24 16:40:13 ERROR CookingManager:55 - WTF IS GOING ON DPC
+2023-04-24 17:19:56 ERROR CookingManager:55 - WTF IS GOING ON DPC
+2023-04-24 18:15:07 ERROR DBUtils:55 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || FATAL: password authentication failed for user "72jihfr6"
+2023-04-24 18:51:43 ERROR DBUtils:55 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || FATAL: password authentication failed for user "72jihfr6"
+2023-04-24 18:52:44 ERROR HomeController:89 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: relation "public.food_time" does not exist
+  Position: 70
+2023-04-24 18:55:35 ERROR HomeController:88 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: missing FROM-clause entry for table "r"
+  Position: 101
+2023-04-24 18:56:35 ERROR HomeController:88 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: missing FROM-clause entry for table "r"
+  Position: 107
+2023-04-24 18:58:06 ERROR HomeController:88 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: syntax error at or near "public"
+  Position: 68
+2023-04-24 18:58:52 ERROR HomeController:88 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: syntax error at or near "public"
+  Position: 65
+2023-04-24 18:59:41 ERROR HomeController:88 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: syntax error at or near "public"
+  Position: 65
+2023-04-24 19:00:29 ERROR HomeController:87 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: syntax error at or near "public"
+  Position: 65
+2023-04-24 19:01:31 ERROR HomeController:87 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: syntax error at or near "food_type"
+  Position: 58
+2023-04-24 20:55:27 ERROR HomeController:113 - eu.fiit.cookingmanager.cookingmanager.controller.HomeController || ERROR: column r.accountid does not exist
+  Hint: Perhaps you meant to reference the column "r.account_id".
+  Position: 22
+2023-04-24 22:47:24 ERROR DBUtils:52 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || FATAL: password authentication failed for user "72jihfr6"
+2023-04-24 22:51:17 ERROR DBUtils:52 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || FATAL: password authentication failed for user "72jihfr6"
+2023-04-24 22:51:17 ERROR LoginController:61 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || Cannot invoke "java.sql.Connection.prepareStatement(String)" because "conn" is null
+2023-04-24 22:51:22 ERROR DBUtils:52 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || FATAL: password authentication failed for user "72jihfr6"
+2023-04-24 22:51:22 ERROR LoginController:61 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || Cannot invoke "java.sql.Connection.prepareStatement(String)" because "conn" is null
+2023-04-24 22:51:30 ERROR DBUtils:52 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || FATAL: password authentication failed for user "72jihfr6"
+2023-04-24 22:51:30 ERROR LoginController:61 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || Cannot invoke "java.sql.Connection.prepareStatement(String)" because "conn" is null

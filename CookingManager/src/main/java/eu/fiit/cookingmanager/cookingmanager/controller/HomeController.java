@@ -1,5 +1,6 @@
 package eu.fiit.cookingmanager.cookingmanager.controller;
 
+import eu.fiit.cookingmanager.cookingmanager.repository.entity.Recipe;
 import eu.fiit.cookingmanager.cookingmanager.utils.DBUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,10 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
@@ -36,6 +38,9 @@ public class HomeController implements Initializable {
     @FXML
     private VBox recipeList;
 
+    @FXML
+    private ScrollPane recipeScroll;
+
     public String username ;
 
     public void setUserInformation(String username){lbl_name.setText(username);
@@ -45,6 +50,9 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        recipeScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        recipeScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        recipeScroll.setStyle("-fx-background-color: transparent");
 
         btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -67,39 +75,61 @@ public class HomeController implements Initializable {
 
     public void loadRecipes() {
         DBUtils dbUtils = new DBUtils();
+        HashMap<String, Recipe> recipes = new HashMap<>();
 
         try {
             Connection conn = dbUtils.dbConnect();
 
-            String query = "SELECT r.name, r.time_to_cook, ft.type FROM recipe r" +
+            String query = "SELECT r.id, r.name, r.account_id, r.time_to_cook, ft.type FROM recipe r" +
                     " JOIN food_type ft ON ft.id = r.food_type_id";
 
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
 
+            // load data to hash-map for quicker search time
             while (rs.next()) {
-                Pane recipePanel = new Pane();
-                    recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px;");
+                Recipe recipe = new Recipe();
+                    recipe.setId(rs.getInt("id"));
+                    recipe.setName(rs.getString("name"));
+                    recipe.setTimeToCook(rs.getInt("time_to_cook"));
+                    recipe.setFoodType(rs.getString("type"));
 
-                    recipePanel.setOnMouseClicked(e -> {
-
-                    });
-
-                Text recipeName = new Text(rs.getString("name"));
-                    recipeName.setStyle("-fx-font-size: 23px; -fx-padding: 20px");
-                    recipeName.setX(20.0);
-                    recipeName.setY(40.0);
-
-                Text recipeType = new Text(rs.getString("type"));
-                Text timeToCook = new Text(String.valueOf(rs.getInt("time_to_cook")));
-
-                recipePanel.getChildren().add(recipeName);
-                recipeList.getChildren().add(recipePanel);
-
-
+                recipes.put(rs.getString("name"), recipe);
             }
+
+            // print recipes
+            for (String recipeKey : recipes.keySet()) {
+                Recipe recipe = recipes.get(recipeKey);
+
+                Pane recipePanel = new Pane();
+                recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px;");
+
+                // onClick event handler for recipes (opens recipe detail)
+                recipePanel.setOnMouseClicked(e -> {
+                    System.out.println(recipe.getId());
+                });
+
+              Text recipeName = new Text(recipe.getName());
+                  recipeName.setStyle("-fx-font: normal bold 23px 'sans-serif'");
+                  recipeName.setX(20.0);
+                  recipeName.setY(40.0);
+
+              Text recipeType = new Text("Food type: " + recipe.getFoodType());
+                  recipeType.setStyle("-fx-font: normal 18px 'sans-serif'");
+                  recipeType.setX(20.0);
+                  recipeType.setY(70.0);
+
+              Text timeToCook = new Text("Time to cook: " + recipe.getTimeToCook() + " min.");
+                  timeToCook.setStyle("-fx-font: normal 18px 'sans-serif'");
+                  timeToCook.setX(20.0);
+                  timeToCook.setY(100.0);
+
+              recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook); // add component to the Pane component
+
+              recipeList.getChildren().add(recipePanel); // add new item to the Vbox
+          }
         }
-        catch (SQLException e) {
+        catch (SQLException | NullPointerException e) {
             logger.error(HomeController.class.getName() + " || " + e.getMessage());
         }
 

@@ -19,7 +19,7 @@ public class CookingManager extends Application {
     public void start(Stage stage) throws IOException {
         Locale currentLocale = Locale.getDefault();
         ResourceBundle messages = ResourceBundle.getBundle("properties.messages", currentLocale);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"), messages);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"), messages);
 
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

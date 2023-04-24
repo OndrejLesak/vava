@@ -90,6 +90,7 @@ public class DBUtils {
                 logger.error(DBUtils.class.getName() + " || " + e.getMessage());
             }
         }
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);
 
