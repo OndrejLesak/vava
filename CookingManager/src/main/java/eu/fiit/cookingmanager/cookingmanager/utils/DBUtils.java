@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -73,7 +74,7 @@ public class DBUtils {
     public static void changeScene(Event event, String fxmlFile, String title, ResourceBundle resourceBundle) {
         Parent root = null;
         try{
-            root = FXMLLoader.load(CookingManager.class.getResource(fxmlFile), resourceBundle);
+            root = FXMLLoader.load(Objects.requireNonNull(CookingManager.class.getResource(fxmlFile)), resourceBundle);
         } catch (IOException e) {
             logger.error(DBUtils.class.getName() + " || " + e.getMessage());
         }
