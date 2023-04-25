@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
 
@@ -70,55 +72,63 @@ public class RegisterController implements Initializable {
                     }
 
                     else {
-                        query = "SELECT * FROM public.account WHERE login=(?)";
-                        pstmt = conn.prepareStatement(query);
-                        pstmt.setString(1, tf_username.getText());
-                        rs = pstmt.executeQuery();
+                        String mailRegex = "^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+                        Pattern mailPattern = Pattern.compile(mailRegex);
 
-                        if (rs != null){
-                            lbl_error.setText(resourceBundle.getString("user_existing"));
+                        if (!mailPattern.matcher(tf_email.getText()).matches()) {
+                            System.out.println("Nespravny format");
+                            lbl_error.setText(resourceBundle.getString("email_bad_format"));
                         }
 
                         else {
-                            // login pass name surname email
-                            query = "INSERT INTO public.user(id, name, surname, email, user_type_id) VALUES(nextval('user_id_seq'), ?, ?, ?, ?)";
+                            query = "SELECT * FROM public.account WHERE login=(?)";
                             pstmt = conn.prepareStatement(query);
-
-                            //pstmt.setInt(1, 8);
-                            pstmt.setString(1, tf_name.getText());
-                            pstmt.setString(2, tf_surname.getText());
-                            pstmt.setString(3, tf_email.getText());
-                            if (chbox_type.getValue() == "Guest") {
-                                pstmt.setInt(4, 1);  //1 je normalny guest
-                            } else if (chbox_type.getValue() == "Chef") {
-                                pstmt.setInt(4, 2);  //2 je sefkuchar
-                            }
-
-                            pstmt.executeUpdate();
-
-                            query = "SELECT * FROM public.user WHERE email=(?)";
-                            pstmt = conn.prepareStatement(query);
-                            pstmt.setString(1, tf_email.getText());
+                            pstmt.setString(1, tf_username.getText());
                             rs = pstmt.executeQuery();
 
-                            rs.next();
-                            int user_id = rs.getInt("id");
-                            GlobalVariableUser.setUser(user_id, conn);
+                            if (rs != null) {
+                                lbl_error.setText(resourceBundle.getString("user_existing"));
+                            } else {
+                                // login pass name surname email
+                                query = "INSERT INTO public.user(id, name, surname, email, user_type_id) VALUES(nextval('user_id_seq'), ?, ?, ?, ?)";
+                                pstmt = conn.prepareStatement(query);
 
-                            query = "INSERT INTO public.account(id, user_id, login, password) VALUES(nextval('account_id_seq'), ?, ?, ?)";
-                            pstmt = conn.prepareStatement(query);
+                                //pstmt.setInt(1, 8);
+                                pstmt.setString(1, tf_name.getText());
+                                pstmt.setString(2, tf_surname.getText());
+                                pstmt.setString(3, tf_email.getText());
+                                if (chbox_type.getValue() == "Guest") {
+                                    pstmt.setInt(4, 1);  //1 je normalny guest
+                                } else if (chbox_type.getValue() == "Chef") {
+                                    pstmt.setInt(4, 2);  //2 je sefkuchar
+                                }
 
-                            //pstmt.setInt(1, 2);
-                            pstmt.setInt(1, user_id);
-                            pstmt.setString(2, tf_username.getText());
-                            pstmt.setString(3, pf_password.getText());
+                                pstmt.executeUpdate();
 
-                            pstmt.executeUpdate();
+                                query = "SELECT * FROM public.user WHERE email=(?)";
+                                pstmt = conn.prepareStatement(query);
+                                pstmt.setString(1, tf_email.getText());
+                                rs = pstmt.executeQuery();
 
-                            DBUtils.dbDisconnect(conn);
-                            DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+                                rs.next();
+                                int user_id = rs.getInt("id");
+                                GlobalVariableUser.setUser(user_id, conn);
+
+                                query = "INSERT INTO public.account(id, user_id, login, password) VALUES(nextval('account_id_seq'), ?, ?, ?)";
+                                pstmt = conn.prepareStatement(query);
+
+                                //pstmt.setInt(1, 2);
+                                pstmt.setInt(1, user_id);
+                                pstmt.setString(2, tf_username.getText());
+                                pstmt.setString(3, pf_password.getText());
+
+                                pstmt.executeUpdate();
+
+                                DBUtils.dbDisconnect(conn);
+                                DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+                            }
+
                         }
-
                     }
 
                     // login pass name surname email
