@@ -44,16 +44,16 @@
          </font>
       </Label>
       <TextField layoutX="127.0" layoutY="132.0" prefHeight="26.0" prefWidth="59.0" promptText="%minutes" />
-      <Button layoutX="1216.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%save" AnchorPane.rightAnchor="20.0" />
-      <Button fx:id="btn_discard" layoutX="1145.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%discard" AnchorPane.rightAnchor="100.0" />
-      <Button fx:id="btn_xmlFile" layoutX="123.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%choose_xml_file" />
-      <Label layoutX="14.0" layoutY="677.0" text="%XMLfile">
+      <Button layoutX="1216.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="btn_discard" layoutX="1145.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%discard" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="100.0" />
+      <Button fx:id="btn_xmlFile" layoutX="123.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%choose_xml_file" AnchorPane.bottomAnchor="15.0" />
+      <Label layoutX="14.0" layoutY="677.0" text="%XMLfile" AnchorPane.bottomAnchor="15.0">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
       <Label fx:id="lbl_xmlFile" layoutX="231.0" layoutY="677.0" />
-      <Button fx:id="btn_back_home" layoutX="11.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" AnchorPane.leftAnchor="11.0" />
+      <Button fx:id="btn_back_home" layoutX="11.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" AnchorPane.leftAnchor="20.0" />
       <VBox fx:id="vbox_ingredients" layoutX="773.0" layoutY="101.0" prefHeight="552.0" prefWidth="285.0" />
    </children>
 </AnchorPane>

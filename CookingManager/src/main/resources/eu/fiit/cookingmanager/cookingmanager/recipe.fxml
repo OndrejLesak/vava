@@ -2,14 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.RecipeController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fe6ff" height="44.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
-      <Button fx:id="btn_logout" layoutX="1205.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" />
+      <Button fx:id="btn_logout" layoutX="1205.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" AnchorPane.rightAnchor="20.0" />
       <Label layoutX="23.0" layoutY="71.0" text="%recipe_name_choose">
          <font>
             <Font name="System Bold Italic" size="18.0" />
@@ -25,33 +28,23 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="186.0" text="%ingredients">
+      <Label layoutX="709.0" layoutY="71.0" text="%ingredients">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="256.0" text="%steps">
+      <Label layoutX="21.0" layoutY="180.0" text="%steps">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btn_back" layoutX="13.0" layoutY="9.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" />
-      <Label fx:id="lbl_recipeName" layoutX="284.0" layoutY="71.0" prefHeight="18.0" prefWidth="154.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbl_recipeType" layoutX="284.0" layoutY="112.0">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <Label fx:id="lbl_recipeTime" layoutX="284.0" layoutY="145.0">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <Label fx:id="lbl_steps" layoutX="284.0" layoutY="256.0">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+      <Button fx:id="btn_back" layoutX="13.0" layoutY="9.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="txt_recipeName" layoutX="313.0" layoutY="75.0" />
+      <TextField fx:id="txt_recipeType" layoutX="313.0" layoutY="111.0" />
+      <TextField fx:id="txt_recipeTime" layoutX="313.0" layoutY="146.0" />
+      <TextArea fx:id="txt_steps" layoutX="315.0" layoutY="194.0" prefHeight="491.0" prefWidth="394.0" />
+      <VBox layoutX="838.0" layoutY="75.0" prefHeight="611.0" prefWidth="273.0" />
+      <Button fx:id="btn_save" layoutX="1205.0" layoutY="674.0" mnemonicParsing="false" text="%save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="btn_createList" layoutX="25.0" layoutY="673.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="273.0" text="%create_shopping_list" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" />
    </children>
 </AnchorPane>

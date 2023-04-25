@@ -143,7 +143,7 @@ public class AddRecipeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", GlobalVariableUser.getName(), resourceBundle);
+                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
             }
         });
     }
