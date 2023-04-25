@@ -49,7 +49,7 @@
             <Insets right="10.0" />
          </padding>
          <buttons>
-            <Button fx:id="btn_back_home" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" />
+            <Button fx:id="btn_back" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" />
             <Button fx:id="btn_logout" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" />
          </buttons>
       </ButtonBar>
