@@ -153,7 +153,7 @@ public class AddRecipeController implements Initializable {
             DBUtils.dbDisconnect(conn);
 
 
-            System.out.println(arr[1]);
+            //System.out.println(arr[1]);
         choiceType.setItems(FXCollections.observableArrayList(arr)
         );
         choiceType.setValue("");
@@ -175,7 +175,7 @@ public class AddRecipeController implements Initializable {
                 selectedFile = fileChooser.showOpenDialog(stage);
                 if(selectedFile != null){
 
-                    System.out.println(selectedFile.getAbsolutePath());
+                    //System.out.println(selectedFile.getAbsolutePath());
                     inputName.setText("");
                     inputTime.setText("");
                     inputSteps.setText("");
@@ -205,10 +205,10 @@ public class AddRecipeController implements Initializable {
                                      NodeList ingredientList = receptElement.getElementsByTagName("ingredient");
                                     String steps = receptElement.getElementsByTagName("steps").item(0).getTextContent();
 
-                                    System.out.println("Name: " + name);
-                                    System.out.println("Type: " + type);
-                                    System.out.println("Time: " + time);
-                                    System.out.println("Ingredients:");
+                                    //System.out.println("Name: " + name);
+                                    //System.out.println("Type: " + type);
+                                    //System.out.println("Time: " + time);
+                                    //System.out.println("Ingredients:");
                                     for (int j = 0; j < ingredientList.getLength(); j++) {
                                         org.w3c.dom.Node ingredientNode = ingredientList.item(j);
                                         if (ingredientNode.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
@@ -218,8 +218,8 @@ public class AddRecipeController implements Initializable {
                                             System.out.println("- " + ingName + ": " + ingAmount);
                                         }
                                     }
-                                    System.out.println("Steps: " + steps);
-                                    System.out.println();
+                                    //System.out.println("Steps: " + steps);
+                                    //System.out.println();
 
 
 
@@ -238,7 +238,7 @@ public class AddRecipeController implements Initializable {
                                     DBUtils.dbDisconnect(conn);
 
                                     if( is_food_type){
-                                        System.out.println("Hello this food is here");
+                                        //System.out.println("Hello this food is here");
                                         inputName.setText(name);
                                         inputTime.setText(time);
                                         inputSteps.setText(steps);

@@ -61,7 +61,7 @@
       </Label>
       <Label fx:id="lbl_xmlFile" layoutX="231.0" layoutY="677.0" />
       <Button fx:id="btn_back_home" layoutX="11.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" AnchorPane.leftAnchor="11.0" />
-      <ScrollPane fitToWidth="true" vbarPolicy="ALWAYS">
+      <ScrollPane layoutX="773.0" layoutY="95.0" fitToWidth="true" vbarPolicy="AS_NEEDED">
          <VBox fx:id="vbox_ingredients" layoutX="773.0" layoutY="101.0" prefHeight="552.0" prefWidth="285.0" />
       </ScrollPane>
    </children>
