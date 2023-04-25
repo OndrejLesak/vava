@@ -26,7 +26,7 @@
          <Font size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="btn_signup" layoutX="584.0" layoutY="622.0" mnemonicParsing="false" text="%sign_up_title">
+   <Button fx:id="btn_signup" layoutX="584.0" layoutY="622.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%sign_up_title">
       <font>
          <Font name="System Bold Italic" size="14.0" />
       </font>
@@ -36,7 +36,7 @@
          <Font name="System Italic" size="14.0" />
       </font>
    </Label>
-   <Button fx:id="btn_login" layoutX="664.0" layoutY="663.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Log In!" textFill="#0808f8" underline="true">
+   <Button fx:id="btn_login" layoutX="664.0" layoutY="663.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Log In!" textFill="#0808f8" underline="true">
       <font>
          <Font size="14.0" />
       </font>

@@ -116,7 +116,7 @@ public class RegisterController implements Initializable {
                             pstmt.executeUpdate();
 
                             DBUtils.dbDisconnect(conn);
-                            DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), tf_username.getText(), resourceBundle);
+                            DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
                         }
 
                     }
@@ -152,7 +152,7 @@ public class RegisterController implements Initializable {
                     pstmt.executeUpdate();
 
                     DBUtils.dbDisconnect(conn);
-                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), tf_username.getText(), resourceBundle);
+                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
 
                 } catch (SQLException e) {
                     logger.error(RegisterController.class.getName() + " || " + e.getMessage());
@@ -165,7 +165,7 @@ public class RegisterController implements Initializable {
         btn_login.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), null, resourceBundle);
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), resourceBundle);
             }
         });
 
