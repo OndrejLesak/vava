@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.RecipeController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fe6ff" height="44.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
-      <Button fx:id="btn_logout" layoutX="1205.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" AnchorPane.rightAnchor="20.0" />
       <Label layoutX="23.0" layoutY="71.0" text="%recipe_name_choose">
          <font>
             <Font name="System Bold Italic" size="18.0" />
@@ -38,7 +37,6 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btn_back" layoutX="13.0" layoutY="9.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" AnchorPane.leftAnchor="20.0" />
       <TextField fx:id="txt_recipeName" layoutX="313.0" layoutY="75.0" />
       <TextField fx:id="txt_recipeType" layoutX="313.0" layoutY="111.0" />
       <TextField fx:id="txt_recipeTime" layoutX="313.0" layoutY="146.0" />
@@ -46,5 +44,14 @@
       <VBox layoutX="838.0" layoutY="75.0" prefHeight="611.0" prefWidth="273.0" />
       <Button fx:id="btn_save" layoutX="1205.0" layoutY="674.0" mnemonicParsing="false" text="%save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="btn_createList" layoutX="25.0" layoutY="673.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="273.0" text="%create_shopping_list" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" />
+      <ButtonBar prefHeight="54.0" prefWidth="1280.0" style="-fx-background-color: rgb(255, 115, 0);">
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+         <buttons>
+            <Button fx:id="btn_back_home" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" />
+            <Button fx:id="btn_logout" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" />
+         </buttons>
+      </ButtonBar>
    </children>
 </AnchorPane>

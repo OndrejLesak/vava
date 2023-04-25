@@ -33,24 +33,16 @@ import java.util.Arrays;
 
 public class AddRecipeController implements Initializable {
 
+    @FXML public VBox vbox_ingredients;
     @FXML private Button btn_xmlFile;
     @FXML private Button btn_logout;
     @FXML private Button btn_back_home;
-
     @FXML private Button btn_adding;
     @FXML private Label lbl_xmlFile;
-
-    @FXML
-    private TextField inputName;
-    @FXML
-    private TextField inputTime;
-    @FXML
-    private TextArea inputSteps;
-    @FXML
-    private Button btn_recipe;
-
-    @FXML
-    private VBox vbox_ingredients;
+    @FXML private TextField inputName;
+    @FXML private TextField inputTime;
+    @FXML private TextArea inputSteps;
+    @FXML private Button btn_recipe;
     @FXML private ChoiceBox choiceType;
     @FXML private Button btn_discard;
     FileChooser fileChooser = new FileChooser();
@@ -123,12 +115,6 @@ public class AddRecipeController implements Initializable {
 
         }
 
-
-
-
-
-
-
         String [] arr = {};
         try{//Get information about all food types and fill the panel
         Connection conn = new DBUtils().dbConnect();
@@ -152,8 +138,6 @@ public class AddRecipeController implements Initializable {
             }
             DBUtils.dbDisconnect(conn);
 
-
-            //System.out.println(arr[1]);
         choiceType.setItems(FXCollections.observableArrayList(arr)
         );
         choiceType.setValue("");
@@ -270,11 +254,6 @@ public class AddRecipeController implements Initializable {
 
                     }
 
-
-
-
-
-
                 }
             }
         });
@@ -314,7 +293,6 @@ public class AddRecipeController implements Initializable {
 
         btn_adding.setOnAction(event -> addNewChoiceBox());
 
-
         /*btn_adding.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -324,8 +302,6 @@ public class AddRecipeController implements Initializable {
             }
         });
         */
-
-
 
     }
 

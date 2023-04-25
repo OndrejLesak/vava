@@ -1,46 +1,17 @@
-2023-04-24 20:32:41 ERROR LoginController:62 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:43:34 ERROR LoginController:62 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:44:22 ERROR LoginController:62 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:45:19 ERROR LoginController:62 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:47:06 ERROR LoginController:62 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:48:22 ERROR LoginController:62 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:50:34 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:52:40 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:54:32 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:55:38 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:56:55 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:57:44 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 20:58:24 ERROR LoginController:63 - eu.fiit.cookingmanager.cookingmanager.controller.LoginController || ERROR: operator does not exist: integer = character varying
-  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
-  Position: 35
-2023-04-24 21:11:30 ERROR DBUtils:90 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
-/C:/Users/ahlad/Desktop/LS%202023/VAVA/VAVA_PROJECT/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml
-2023-04-24 23:32:53 ERROR DBUtils:77 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || ScrollPane is not a valid type.
-/C:/Users/42191/OneDrive/Dokumenty/Škola/Škola%206.%20semester/VAVA/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/home.fxml:36
+2023-04-25 16:18:03 ERROR DBUtils:78 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
+/C:/Users/42191/OneDrive/Dokumenty/Škola/Škola%206.%20semester/VAVA/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml
+
+2023-04-25 16:20:14 ERROR DBUtils:78 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
+/C:/Users/42191/OneDrive/Dokumenty/Škola/Škola%206.%20semester/VAVA/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml
+
+2023-04-25 16:20:46 ERROR DBUtils:78 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
+/C:/Users/42191/OneDrive/Dokumenty/Škola/Škola%206.%20semester/VAVA/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml
+
+2023-04-25 16:21:32 ERROR DBUtils:78 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
+/C:/Users/42191/OneDrive/Dokumenty/Škola/Škola%206.%20semester/VAVA/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml
+
+2023-04-25 16:24:35 ERROR DBUtils:78 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
+/C:/Users/42191/OneDrive/Dokumenty/Škola/Škola%206.%20semester/VAVA/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml
 
 2023-04-25 16:41:55 ERROR DBUtils:78 - eu.fiit.cookingmanager.cookingmanager.utils.DBUtils || 
 /C:/Users/ahlad/Desktop/LS%202023/VAVA/VAVA_PROJECT/vava/CookingManager/target/classes/eu/fiit/cookingmanager/cookingmanager/addRecipe.fxml

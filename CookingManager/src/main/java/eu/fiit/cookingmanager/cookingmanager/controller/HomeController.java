@@ -41,21 +41,20 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        new RecipeController();
         recipeScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        //recipeScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         recipeScroll.setStyle("-fx-background-color: transparent");
         lbl_name.setText(GlobalVariableUser.getName());
-
         if (GlobalVariableUser.getType() == 1){
             btn_addRecipe.setVisible(false);
         }
-        new RecipeController();
+        loadRecipes(resourceBundle);
 
 
         btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"),  resourceBundle);
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), resourceBundle);
             }
         });
 
@@ -65,8 +64,6 @@ public class HomeController implements Initializable {
                 DBUtils.changeScene(actionEvent, "addRecipe.fxml", resourceBundle.getString("add_recipe_title"), resourceBundle);
             }
         });
-
-        loadRecipes(resourceBundle);
     }
 
 
@@ -99,7 +96,7 @@ public class HomeController implements Initializable {
                 Recipe recipe = recipes.get(recipeKey);
 
                 Pane recipePanel = new Pane();
-                recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px;");
+                recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand");
 
                 // onClick event handler for recipes (opens recipe detail)
                 recipePanel.setOnMouseClicked(e -> {

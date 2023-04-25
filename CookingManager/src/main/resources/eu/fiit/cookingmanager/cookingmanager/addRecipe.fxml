@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ScrollPane?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.AddRecipeController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.AddRecipeController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1fe6ff" height="42.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
-
-      <Button fx:id="btn_logout" layoutX="1205.0" layoutY="9.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" AnchorPane.rightAnchor="20.0" />
       <TextField fx:id="inputName" layoutX="128.0" layoutY="58.0" promptText="%recipe_name_choose" />
       <ChoiceBox fx:id="choiceType" layoutX="128.0" layoutY="94.0" prefWidth="150.0" />
 
@@ -60,9 +58,21 @@
          </font>
       </Label>
       <Label fx:id="lbl_xmlFile" layoutX="231.0" layoutY="677.0" />
-      <Button fx:id="btn_back_home" layoutX="11.0" layoutY="10.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" AnchorPane.leftAnchor="11.0" />
-      <ScrollPane layoutX="773.0" layoutY="95.0" fitToWidth="true" vbarPolicy="AS_NEEDED">
-         <VBox fx:id="vbox_ingredients" layoutX="773.0" layoutY="101.0" prefHeight="552.0" prefWidth="285.0" />
-      </ScrollPane>
+      <VBox fx:id="vbox_ingredients" layoutX="797.0" layoutY="89.0" prefHeight="552.0" prefWidth="285.0">
+         <children>
+            <ScrollPane fitToWidth="true" prefHeight="555.0" prefWidth="285.0" vbarPolicy="ALWAYS" />
+         </children>
+      </VBox>
+      <ButtonBar prefHeight="54.0" prefWidth="1280.0" style="-fx-background-color: rgb(255, 115, 0);">
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+         <buttons>
+            <Button fx:id="btn_back_home" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" />
+      
+            <Button fx:id="btn_logout" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" />
+         </buttons>
+      </ButtonBar>
+
    </children>
 </AnchorPane>
