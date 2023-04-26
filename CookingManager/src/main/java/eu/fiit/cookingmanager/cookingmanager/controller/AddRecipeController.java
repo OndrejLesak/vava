@@ -366,6 +366,7 @@ public class AddRecipeController implements Initializable {
                     ingredients.appendChild(ingredient2);
 
                     Element steps = doc.createElement("steps");
+                    steps.appendChild(doc.createTextNode("Add some inportant info and process HERE"));
                     rootElement.appendChild(steps);
 
                     // Write the document to a file
@@ -570,7 +571,8 @@ public class AddRecipeController implements Initializable {
 
                         } catch (SQLException e) {
                             //System.out.println("Error executing queries: " + e.getMessage());
-
+                                lbl_xmlFile.setText("Invalid Inputs");
+                                lbl_xmlFile.setTextFill(Color.color(1,0,0));
                             try {
                                 conn.rollback(); // rollback the transaction if an error occurs
                                 //System.out.println("All changes rolled back successfully");
@@ -589,7 +591,12 @@ public class AddRecipeController implements Initializable {
                                 recept_id = rs.getInt("id");
                                 DBUtils.dbDisconnect(conn);
                                 }
-                            catch(Exception e) {}
+                            catch(Exception e) {
+
+                                lbl_xmlFile.setText("Invalid Inputs");
+                                lbl_xmlFile.setTextFill(Color.color(1,0,0));
+
+                            }
                             //sem treba ingrediencie narobiť Q v loope
                             String[] queries = new String[] {};
                             //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID
@@ -618,9 +625,12 @@ public class AddRecipeController implements Initializable {
 
                                 //System.out.println("All queries executed successfully");
 
+                                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
                             } catch (SQLException e) {
                                 //System.out.println("Error executing queries: " + e.getMessage());
 
+                                lbl_xmlFile.setText("Invalid Inputs");
+                                lbl_xmlFile.setTextFill(Color.color(1,0,0));
                                 try {
                                     conn.rollback(); // rollback the transaction if an error occurs
                                     //System.out.println("All changes rolled back successfully");
@@ -628,26 +638,11 @@ public class AddRecipeController implements Initializable {
                                     //System.out.println("Error rolling back changes: " + e1.getMessage());
                                 }}
 
-                            DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
-                            //System.out.println("UserID");
-                            //System.out.println(GlobalVariableUser.getAccountId());
-
-                            /*
-                            while (rs.next()) {
-                                int user_id = rs.getInt("user_id");
-                                String password = rs.getString("password");
-                                if (password.equals(pf_password.getText())) {
-                                    isAuthenticated = true;
-                                    GlobalVariableUser.setUser(user_id, conn);
-                                    DBUtils.dbDisconnect(conn);
-                                    break;
-                                }
-                            }*/
                             }
                      }
                         catch (Exception e) {
 
-                            lbl_xmlFile.setText("Database disconnected");
+                            lbl_xmlFile.setText("Invalid Inputs");
                             lbl_xmlFile.setTextFill(Color.color(1,0,0));
                             e.printStackTrace();
                         }
