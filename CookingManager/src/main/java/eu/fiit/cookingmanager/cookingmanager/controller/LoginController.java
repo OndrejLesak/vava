@@ -36,6 +36,8 @@ public class LoginController implements Initializable {
         btn_login.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info(String.format("User requested to log into account %s", tf_username.getText().trim()));
+
                 boolean isAuthenticated = false;
 
                 try {
@@ -44,7 +46,7 @@ public class LoginController implements Initializable {
                     String query = "SELECT * FROM public.account WHERE login=(?)";
                     PreparedStatement pstmt = conn.prepareStatement(query);
 
-                    pstmt.setString(1, tf_username.getText());
+                    pstmt.setString(1, tf_username.getText().trim());
                     ResultSet rs = pstmt.executeQuery();
 
                     while (rs.next()) {
@@ -59,13 +61,15 @@ public class LoginController implements Initializable {
                     }
 
                 } catch (SQLException | NullPointerException e) {
-                    logger.error(LoginController.class.getName() + " || " + e.getMessage());
+                    logger.error(e.getMessage());
                 }
 
                 if (isAuthenticated) {
+                    logger.info(String.format("User %s successfully logged in", GlobalVariableUser.getName()));
                     DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
                 } else {
                     lbl_error.setText(resourceBundle.getString("credentials_mismatch"));
+                    logger.error("Incorrect credentials");
                 }
             }
         });
@@ -73,6 +77,7 @@ public class LoginController implements Initializable {
         btn_signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User requested to register a new account");
                 DBUtils.changeScene(actionEvent, "register.fxml", resourceBundle.getString("sign_up_title"), resourceBundle);
             }
         });

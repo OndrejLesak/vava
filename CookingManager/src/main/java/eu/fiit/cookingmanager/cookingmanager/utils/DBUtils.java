@@ -43,7 +43,7 @@ public class DBUtils {
             Class.forName(driver);
         }
         catch(ClassNotFoundException classNotFoundException) {
-            logger.error(DBUtils.class.getName() + " || " + classNotFoundException.getMessage());
+            logger.error(classNotFoundException.getMessage());
         }
 
         try {
@@ -51,7 +51,7 @@ public class DBUtils {
 
         }
         catch (SQLException sqlException) {
-            logger.error(DBUtils.class.getName() + " || " + sqlException.getMessage());
+            logger.error(sqlException.getMessage());
         }
 
         return this.conn;
@@ -64,7 +64,7 @@ public class DBUtils {
             }
         }
         catch(SQLException sqlException) {
-            logger.error(DBUtils.class.getName() + " || " + sqlException.getMessage());
+            logger.error(sqlException.getMessage());
 
         }
 
@@ -74,17 +74,16 @@ public class DBUtils {
     public static void changeScene(Event event, String fxmlFile, String title, ResourceBundle resourceBundle) {
         Parent root = null;
         try{
-            root = FXMLLoader.load(Objects.requireNonNull(CookingManager.class.getResource(fxmlFile)), resourceBundle);
-        } catch (IOException e) {
-            logger.error(DBUtils.class.getName() + " || " + e.getMessage());
+            root = FXMLLoader.load(CookingManager.class.getResource(fxmlFile), resourceBundle);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle(title);
+
+            assert root != null;
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException | NullPointerException e) {
+            logger.error(e.getMessage());
         }
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
-
-        assert root != null;
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 
 }

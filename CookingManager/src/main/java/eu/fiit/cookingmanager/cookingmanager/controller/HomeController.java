@@ -64,13 +64,15 @@ public class HomeController implements Initializable {
         btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), resourceBundle);
+                logger.info("User logged out of the application");
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"),  resourceBundle);
             }
         });
 
         btn_addRecipe.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User requested to create a new recipe");
                 DBUtils.changeScene(actionEvent, "addRecipe.fxml", resourceBundle.getString("add_recipe_title"), resourceBundle);
             }
         });
@@ -166,6 +168,8 @@ public class HomeController implements Initializable {
                 recipes.put(rs.getString("name"), recipe);
             }
 
+            rs.close();
+
             // print recipes
             for (String recipeKey : recipes.keySet()) {
                 Recipe recipe = recipes.get(recipeKey);
@@ -194,13 +198,18 @@ public class HomeController implements Initializable {
                   timeToCook.setX(20.0);
                   timeToCook.setY(100.0);
 
-              recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook); // add component to the Pane component
+              Text author = new Text("Author: " + GlobalVariableUser.getName());
+                author.setStyle("-fx-font: normal 18px 'sans-serif'");
+                author.setX(750.0);
+                author.setY(40.0);
+
+              recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook, author); // add component to the Pane component
 
               recipeList.getChildren().add(recipePanel); // add new item to the Vbox
           }
         }
         catch (SQLException | NullPointerException e) {
-            logger.error(HomeController.class.getName() + " || " + e.getMessage());
+            logger.error(e.getMessage());
         }
 
     }

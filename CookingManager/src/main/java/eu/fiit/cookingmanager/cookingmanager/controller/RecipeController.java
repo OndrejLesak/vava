@@ -11,6 +11,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -32,6 +34,8 @@ public class RecipeController implements Initializable {
     @FXML Button btn_createList;
     @FXML Button btn_save;
 
+    private final static Logger logger = LogManager.getLogger(RecipeController.class);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,9 +51,9 @@ public class RecipeController implements Initializable {
 
             while (rs.next()) {
                 account_id = rs.getInt("account_id");
-                txt_recipeName.setText(rs.getString("name"));
-                txt_recipeTime.setText(String.valueOf(rs.getInt("time_to_cook")));
-                txt_steps.setText(rs.getString("process"));
+                txt_recipeName.setText(rs.getString("name").trim());
+                txt_recipeTime.setText(String.valueOf(rs.getInt("time_to_cook")).trim());
+                txt_steps.setText(rs.getString("process").trim());
                 int food_type = rs.getInt("food_type_id");
 
                 query = "SELECT * FROM public.food_type WHERE id=(?)";
@@ -83,24 +87,25 @@ public class RecipeController implements Initializable {
                 txt_recipeTime.setFont(Font.font("System", FontWeight.BOLD, 12));
                 txt_recipeType.setFont(Font.font("System", FontWeight.BOLD, 12));
                 txt_steps.setFont(Font.font("System", FontWeight.BOLD, 12));
-
             }
             
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            logger.error(e.getMessage());
         }
 
         btn_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"),  resourceBundle);
+                logger.info("User logged out of the application");
+                DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), resourceBundle);
             }
         });
 
         btn_back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User requested to go back to the home screen");
                 DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
             }
         });
@@ -111,7 +116,6 @@ public class RecipeController implements Initializable {
                 //stiahnut shoppping list
             }
         });
-
 
     }
 

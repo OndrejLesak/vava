@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -28,6 +29,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
@@ -60,6 +64,8 @@ public class AddRecipeController implements Initializable {
 
     int recept_id=0;
     String[] ingredientNameArrayClear = {};
+    private final static Logger logger = LogManager.getLogger(AddRecipeController.class);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -96,7 +102,7 @@ public class AddRecipeController implements Initializable {
                 ingredientNameArray = newArrayName.clone();
                 ingredientNameArrayClear = newArrayNameClear.clone();
 
-                Object arrNew[][] = new Object[arr_ing.length + 1][3];
+                Object[][] arrNew = new Object[arr_ing.length + 1][3];
 
                 for (int i = 0; i < arr_ing.length; i++) {
                     for (int j = 0; j < 3; j++) {
@@ -284,6 +290,7 @@ public class AddRecipeController implements Initializable {
         btn_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User logged out of the application");
                 DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"), resourceBundle);
             }
         });
@@ -382,6 +389,7 @@ public class AddRecipeController implements Initializable {
         btn_back_home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User requested to go back to the home screen");
                 DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
             }
         });
@@ -390,6 +398,7 @@ public class AddRecipeController implements Initializable {
 
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User discarded recipe creation");
                 DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
             }
         });
