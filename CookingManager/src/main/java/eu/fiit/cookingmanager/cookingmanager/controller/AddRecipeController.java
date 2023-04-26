@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,7 +23,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.sql.SQLException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -39,6 +39,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
+import java.util.List;
 
 public class AddRecipeController implements Initializable {
 
@@ -126,13 +127,13 @@ public class AddRecipeController implements Initializable {
 
         String [] arr = {};
         try{//Get information about all food types and fill the panel
-        Connection conn = new DBUtils().dbConnect();
-        String query = "Select type from public.food_type";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        ResultSet rs = pstmt.executeQuery();
+            Connection conn = new DBUtils().dbConnect();
+            String query = "Select type from public.food_type";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
 
 
-        //robiš že hladáš types s DB
+            //robiš že hladáš types s DB
             while (rs.next()) {
 
                 String food_type_element = rs.getString("type");
@@ -147,16 +148,14 @@ public class AddRecipeController implements Initializable {
             }
             DBUtils.dbDisconnect(conn);
 
-            //System.out.println(arr[1]);
-        choiceType.setItems(FXCollections.observableArrayList(arr)
-        );
-        choiceType.setValue("");
+            choiceType.setItems(FXCollections.observableArrayList(arr));
+            choiceType.setValue("");
         }
-         catch (Exception e) {
+        catch (Exception e) {
 
-             lbl_xmlFile.setText("Database disconnected");
-             lbl_xmlFile.setTextFill(Color.color(1,0,0));
-             e.printStackTrace();
+            lbl_xmlFile.setText("Database disconnected");
+            lbl_xmlFile.setTextFill(Color.color(1,0,0));
+            e.printStackTrace();
         }
 
         btn_xmlFile.setOnAction(new EventHandler<ActionEvent>(){
@@ -168,7 +167,7 @@ public class AddRecipeController implements Initializable {
                 if(selectedFile != null){
 
                     //System.out.println(selectedFile.getAbsolutePath());
-                   clearPage();
+                    clearPage();
 
 
                     try {
@@ -246,11 +245,13 @@ public class AddRecipeController implements Initializable {
 
                                                 if(found == true) {
 
-                                                addNewChoiceBox(ingredientNameArray[u],ingAmountFill);
+                                                    addNewChoiceBox(ingredientNameArray[u],ingAmountFill);
+                                                    //addNewChoiceBoxWithScrollBar(ingredientNameArray[u],ingAmountFill);
 
-                                            }
+                                                    //btn_adding.setOnAction(event -> addNewChoiceBoxWithScrollBar());
+                                                }
 
-                                            else
+                                                else
                                                 {
                                                     clearPage();
 
@@ -260,7 +261,7 @@ public class AddRecipeController implements Initializable {
                                                 }
                                             }
                                         }
-                                     }
+                                    }
                                     else
                                     {
                                         lbl_xmlFile.setText("Invalid food type");
@@ -407,263 +408,280 @@ public class AddRecipeController implements Initializable {
 
         btn_recipe.setOnAction(new EventHandler<ActionEvent>(){
 
-            @Override
+                                   @Override
 
-            public void handle(ActionEvent actionEvent) {
-
-
-                //System.out.print(inputName.getText());
-                //System.out.print(inputTime.getText());
-                //System.out.print(inputSteps.getText());
-                //System.out.print(choiceType.getValue());
-
-                //System.out.println(vbox_ingredients.getChildren().size());
-                //System.out.println(vbox_ingredients.getChildren());
-                if(!inputName.getText().equals("") && !inputTime.getText().equals("")  && !inputSteps.getText().equals("")  && !choiceType.getValue().equals(""))
-                {
-
-                    //.out.println(vbox_ingredients.getChildren());
+                                   public void handle(ActionEvent actionEvent) {
 
 
-                    if(vbox_ingredients.getChildren().size()>0)
-                    {
+                                       //System.out.print(inputName.getText());
+                                       //System.out.print(inputTime.getText());
+                                       //System.out.print(inputSteps.getText());
+                                       //System.out.print(choiceType.getValue());
+
+                                       //System.out.println(vbox_ingredients.getChildren().size());
+                                       //System.out.println(vbox_ingredients.getChildren());
+                                       if(!inputName.getText().equals("") && !inputTime.getText().equals("")  && !inputSteps.getText().equals("")  && !choiceType.getValue().equals(""))
+                                       {
+
+                                           //.out.println(vbox_ingredients.getChildren());
 
 
-                        //idem hladat či už taký recept v DB nieje
+                                           if(vbox_ingredients.getChildren().size()>0)
+
+                                               //idem hladat či už taký recept v DB nieje
 
 
 
-                        try{
-                        Connection conn = new DBUtils().dbConnect();
+                                               try{
+                                                   Connection conn = new DBUtils().dbConnect();
 
-                        String query = "SELECT name FROM public.recipe WHERE name=(?)";
-                        PreparedStatement pstmt = conn.prepareStatement(query);
+                                                   String query = "SELECT name FROM public.recipe WHERE name=(?)";
+                                                   PreparedStatement pstmt = conn.prepareStatement(query);
 
-                        pstmt.setString(1, inputName.getText());
-                        ResultSet rs = pstmt.executeQuery();
+                                                   pstmt.setString(1, inputName.getText());
+                                                   ResultSet rs = pstmt.executeQuery();
 
-                        if (rs.next())
-                        {
-                            //System.out.println("This name is in DB");
-                            lbl_xmlFile.setText("Name already claimed");
-                            lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                            DBUtils.dbDisconnect(conn);
-                        }
-                        else
-                        {
-                            DBUtils.dbDisconnect(conn);
-                            //ak je volne meno atm vieme že to má aspoň 1ingredienciu resp jeden hbox už treba naukladať ingrediencie do jedneho poľa aby sme sa vyhli duplikatom a push do DB
-                            //System.out.println("Free nieje v DB");
+                                                   if (rs.next())
+                                                   {
+                                                       //System.out.println("This name is in DB");
+                                                       lbl_xmlFile.setText("Name already claimed");
+                                                       lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                                       DBUtils.dbDisconnect(conn);
+                                                   }
+                                                   else
+                                                   {
+                                                       DBUtils.dbDisconnect(conn);
+                                                       //ak je volne meno atm vieme že to má aspoň 1ingredienciu resp jeden hbox už treba naukladať ingrediencie do jedneho poľa aby sme sa vyhli duplikatom a push do DB
+                                                       //System.out.println("Free nieje v DB");
 
-                            ObservableList<Node> children = vbox_ingredients.getChildren();
-                            List<List<Object>> myArray = new ArrayList<>();
-                            for (Node child : children) {
-                                //System.out.println(child);
-                                //.out.println(child);
-                                //System.out.println("******");
-                                int data = 0 ;
-                                Object data2 = null;
+                                                       ObservableList<Node> children = vbox_ingredients.getChildren();
+                                                       List<List<Object>> myArray = new ArrayList<>();
+                                                       for (Node child : children) {
+                                                           //System.out.println(child);
+                                                           //.out.println(child);
+                                                           //System.out.println("******");
+                                                           int data = 0 ;
+                                                           Object data2 = null;
 
-                                if (child instanceof HBox) {
-                                    HBox hbox = (HBox) child;
-                                    ObservableList<Node> hboxChildren = hbox.getChildren();
-                                    for (Node hboxChild : hboxChildren) {
-                                        if (hboxChild instanceof TextField) {
-                                            TextField textField = (TextField) hboxChild;
-                                            data = Integer.parseInt(textField.getText());
-                                            //System.out.println(data);
-                                            // Do something with the data from the TextField
-                                        } else if (hboxChild instanceof ChoiceBox<?>) {
-                                            ChoiceBox choiceboxik = (ChoiceBox) hboxChild;
-                                            data2 = choiceboxik.getValue();
+                                                           if (child instanceof HBox) {
+                                                               HBox hbox = (HBox) child;
+                                                               ObservableList<Node> hboxChildren = hbox.getChildren();
+                                                               for (Node hboxChild : hboxChildren) {
+                                                                   if (hboxChild instanceof TextField) {
+                                                                       TextField textField = (TextField) hboxChild;
+                                                                       data = Integer.parseInt(textField.getText());
+                                                                       //System.out.println(data);
+                                                                       // Do something with the data from the TextField
+                                                                   } else if (hboxChild instanceof ChoiceBox<?>) {
+                                                                       ChoiceBox choiceboxik = (ChoiceBox) hboxChild;
+                                                                       data2 = choiceboxik.getValue();
 
-                                            //System.out.println(data2);
-                                            // Do something with the button
-                                        }
-                                    }
-                                }
+                                                                       //System.out.println(data2);
+                                                                       // Do something with the button
+                                                                   }
+                                                               }
+                                                           }
 
-                                    if(data > 0 && data2 != null) {
+                                                           if(data > 0 && data2 != null) {
 
-                                        if(myArray.size()>0)
-                                        {
-                                            for(int t=0; t<myArray.size(); t++)
-                                            {
-                                                if(myArray.get(t).get(0) == data2)
-                                                {
-                                                    int value = ((Integer) myArray.get(t).get(1)).intValue();
-                                                    myArray.get(t).set(1, value + data) ;
-                                                    break;
-                                                }
-                                                else if(t == myArray.size()-1)
-                                                {
-                                                    List<Object> row = new ArrayList<>();
-                                                    row.add(data2);
-                                                    row.add(data);
-                                                    row.add(0);
-                                                    myArray.add(row);
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            List<Object> row = new ArrayList<>();
-                                            row.add(data2);
-                                            row.add(data);
-                                            row.add(0);
-                                            myArray.add(row);
-                                        }
-                                    }
-                                }
-                            //System.out.println("dlzka pola");
-                            //System.out.println(myArray.size());
+                                                               if(myArray.size()>0)
+                                                               {
+                                                                   for(int t=0; t<myArray.size(); t++)
+                                                                   {
+                                                                       if(myArray.get(t).get(0) == data2)
+                                                                       {
+                                                                           int value = ((Integer) myArray.get(t).get(1)).intValue();
+                                                                           myArray.get(t).set(1, value + data) ;
+                                                                           break;
+                                                                       }
+                                                                       else if(t == myArray.size()-1)
+                                                                       {
+                                                                           List<Object> row = new ArrayList<>();
+                                                                           row.add(data2);
+                                                                           row.add(data);
+                                                                           row.add(0);
+                                                                           myArray.add(row);
+                                                                           break;
+                                                                       }
+                                                                   }
+                                                               }
+                                                               else
+                                                               {
+                                                                   List<Object> row = new ArrayList<>();
+                                                                   row.add(data2);
+                                                                   row.add(data);
+                                                                   row.add(0);
+                                                                   myArray.add(row);
+                                                               }
+                                                           }
+                                                       }
+                                                       //System.out.println("dlzka pola");
+                                                       //System.out.println(myArray.size());
 
-                            //treba zmazať z poľa jednotky
+                                                       //treba zmazať z poľa jednotky
 
-                            for(int q=0; q<myArray.size();q++) {
-                                for (int r = 0; r < ingredientNameArray.length; r++) {
-                                    if(myArray.get(q).get(0).equals(ingredientNameArray[r]))
-                                    {
-                                        myArray.get(q).set(0,ingredientNameArrayClear[r]);
-                                        for(int z=0; z<arr_ing.length; z++)
-                                        {
-                                            if(arr_ing[z][1].equals(ingredientNameArrayClear[r]))
-                                            {
-                                                myArray.get(q).set(2,arr_ing[z][0]);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                                                       for(int q=0; q<myArray.size();q++) {
+                                                           for (int r = 0; r < ingredientNameArray.length; r++) {
+                                                               if(myArray.get(q).get(0).equals(ingredientNameArray[r]))
+                                                               {
+                                                                   myArray.get(q).set(0,ingredientNameArrayClear[r]);
+                                                                   for(int z=0; z<arr_ing.length; z++)
+                                                                   {
+                                                                       if(arr_ing[z][1].equals(ingredientNameArrayClear[r]))
+                                                                       {
+                                                                           myArray.get(q).set(2,arr_ing[z][0]);
+                                                                       }
+                                                                   }
+                                                               }
+                                                           }
+                                                       }
 
 
-                            try{
-                                conn = new DBUtils().dbConnect();
+                                                       try{
+                                                           conn = new DBUtils().dbConnect();
+                                                           //System.out.println("this try");
+                                                           // SELECT id FROM public.food_type WHERE type = 'Vegan'
 
-                                // SELECT id FROM public.food_type WHERE type = 'Vegan'
-                                query = "SELECT id FROM public.food_type WHERE type='" + choiceType.getValue() + "'";
-                                pstmt = conn.prepareStatement(query);
-                                rs = pstmt.executeQuery();
-                                //System.out.println("testing here");
-                                rs.next();
-                                type_id = rs.getInt("id");
-                                //System.out.println(type_id);
-                                DBUtils.dbDisconnect(conn);
-                                }
-                                catch(Exception e ){}
+                                                           query = "SELECT id FROM public.food_type WHERE type=(?)";
+                                                           pstmt = conn.prepareStatement(query);
+                                                           String selectedValue = String.valueOf(choiceType.getValue());
+                                                           pstmt.setString(1, selectedValue);
+                                                           rs = pstmt.executeQuery();
+                                                           //System.out.println("testing here");
+                                                           rs.next();
+                                                           type_id = rs.getInt("id");
+                                                           //System.out.println(type_id);
+                                                           DBUtils.dbDisconnect(conn);
+                                                           //System.out.println("this try");
+                                                       }
+                                                       catch(Exception e ){}
 
-                            String replacedString = inputSteps.getText().replace("\n", "\\n");
-                            String testing = new String("Insert into public.recipe (account_id, name, food_type_id, time_to_cook, process) VALUES (" + GlobalVariableUser.getAccountId() + ",'" + inputName.getText() + "'," + type_id +"," + inputTime.getText() + ", '{\"key\": \"" + replacedString + "\"}')");
-                            //testing je query čo pridá recept base do queries
-
-                            //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID
-
-                            try  {
-                            conn = new DBUtils().dbConnect();
-                            Statement statement = conn.createStatement();
-                            conn.setAutoCommit(false); // start a transaction
-
-                                statement.executeUpdate(testing);
-                            conn.commit(); // commit the transaction
-
-                            //System.out.println("All queries executed successfully");
-
-                        } catch (SQLException e) {
-                            //System.out.println("Error executing queries: " + e.getMessage());
-                                lbl_xmlFile.setText("Invalid Inputs");
-                                lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                            try {
-                                conn.rollback(); // rollback the transaction if an error occurs
-                                //System.out.println("All changes rolled back successfully");
-                            } catch (SQLException e1) {
-                                //System.out.println("Error rolling back changes: " + e1.getMessage());
-                            }}
+                                                       String replacedString = inputSteps.getText().replace("\n", "\n");
+                                                       //String testing = new String("Insert into public.recipe (account_id, name, food_type_id, time_to_cook, process) VALUES (" + GlobalVariableUser.getUserId() + ",'" + inputName.getText() + "'," + type_id +"," + inputTime.getText() + ", '{\"key\": \"" + replacedString + "\"}')");
 
 
 
-                            try{
-                                conn = new DBUtils().dbConnect();
-                                String recipeIdQuery = new String("SELECT * FROM public.recipe WHERE name = '" + inputName.getText() +"'");
-                                pstmt = conn.prepareStatement(recipeIdQuery);
-                                rs = pstmt.executeQuery();
-                                rs.next();
-                                recept_id = rs.getInt("id");
-                                DBUtils.dbDisconnect(conn);
-                                }
-                            catch(Exception e) {
+                                                       String testing = new String("INSERT INTO public.recipe (id, account_id, name, food_type_id, time_to_cook, process) VALUES (DEFAULT, ?, ?, ?, ?, ?)");
 
-                                lbl_xmlFile.setText("Invalid Inputs");
-                                lbl_xmlFile.setTextFill(Color.color(1,0,0));
 
-                            }
-                            //sem treba ingrediencie narobiť Q v loope
-                            String[] queries = new String[] {};
-                            //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID
-                            for(int w=0; w<myArray.size();w++)
-                            {
-                                String[] newQueries = new String[queries.length + 1];
-                                System.arraycopy(queries, 0, newQueries, 0, queries.length);
+                                                       //testing je query čo pridá recept base do queries
 
-                                String recipe_testing = new String("INSERT INTO public.ingredient_recipe (recipe_id, ingredient_id, pieces) VALUES (" + recept_id + "," + myArray.get(w).get(2)+ ", " + myArray.get(w).get(1)+ ")");
+                                                       //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID
 
-                                newQueries[newQueries.length - 1] = recipe_testing;
-                                queries = newQueries;
-                            }
+                                                       try  {
+
+                                                           conn = new DBUtils().dbConnect();
+
+                                                           pstmt = conn.prepareStatement(testing);
+                                                           pstmt.setInt(1, GlobalVariableUser.getUserId());
+                                                           pstmt.setString(2, inputName.getText());
+                                                           pstmt.setInt(3, type_id);
+                                                           pstmt.setInt(4, Integer.parseInt(inputTime.getText()));
+                                                           pstmt.setString(5, replacedString);
+                                                           pstmt.executeUpdate();
+                                                           conn.setAutoCommit(false); // start a transaction
+
+                                                           conn.commit(); // commit the transaction
+
+                                                           //System.out.println("All queries executed successfully");
+
+                                                           DBUtils.dbDisconnect(conn);
+
+
+
+
+                                                       } catch (SQLException e) {
+                                                           //System.out.println("Error executing queries: " + e.getMessage());
+                                                           lbl_xmlFile.setText("Invalid Inputs");
+                                                           lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                                           try {
+                                                               conn.rollback(); // rollback the transaction if an error occurs
+                                                               //System.out.println("All changes rolled back successfully");
+                                                           } catch (SQLException e1) {
+                                                               //System.out.println("Error rolling back changes: " + e1.getMessage());
+                                                           }}
+
+
+
+                                                       try{
+                                                           conn = new DBUtils().dbConnect();
+
+                                                           String recipeIdQuery = new String("SELECT * FROM public.recipe WHERE name=(?)");
+                                                           pstmt = conn.prepareStatement(recipeIdQuery);
+                                                           pstmt.setString(1,inputName.getText());
+                                                           rs = pstmt.executeQuery();
+                                                           rs.next();
+                                                           recept_id = rs.getInt("id");
+                                                           DBUtils.dbDisconnect(conn);
+                                                           //System.out.println("Name exist in db");
+                                                       }
+                                                       catch(Exception e) {
+
+                                                           lbl_xmlFile.setText("Invalid Inputs");
+                                                           lbl_xmlFile.setTextFill(Color.color(1,0,0));
+
+                                                       }
+                                                       //sem treba ingrediencie narobiť Q v loope
+                                                       String[] queries = new String[] {};
+                                                       //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID
+
 
 //        String query = "INSERT INTO my_table (recipe_id, ingredient_id, ingredient_value) VALUES (?, ?, ?)";
 
-                            try  {
-                                conn = new DBUtils().dbConnect();
-                                Statement statement = conn.createStatement();
-                                conn.setAutoCommit(false); // start a transaction
-                                for (String queryFinal : queries) {
-                                    statement.executeUpdate(queryFinal);
-                                }
+                                                       try  {
+                                                           //System.out.println("sem to padne");
 
-                                conn.commit(); // commit the transaction
+                                                           String recipe_testing = new String("INSERT INTO public.ingredient_recipe (recipe_id, ingredient_id, pieces) VALUES (?, ?, ?)");
+                                                           //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID
+                                                           conn = new DBUtils().dbConnect();
+                                                           pstmt = conn.prepareStatement(recipe_testing);
 
-                                //System.out.println("All queries executed successfully");
+                                                           for (int w = 0; w < myArray.size(); w++) {
+                                                               pstmt.setInt(1, recept_id);
+                                                               pstmt.setInt(2, (int) myArray.get(w).get(2));
+                                                               pstmt.setInt(3, (int) myArray.get(w).get(1));
+                                                               pstmt.addBatch();
+                                                           }
 
-                                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
-                            } catch (SQLException e) {
-                                //System.out.println("Error executing queries: " + e.getMessage());
+                                                           pstmt.executeBatch();
 
-                                lbl_xmlFile.setText("Invalid Inputs");
-                                lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                                try {
-                                    conn.rollback(); // rollback the transaction if an error occurs
-                                    //System.out.println("All changes rolled back successfully");
-                                } catch (SQLException e1) {
-                                    //System.out.println("Error rolling back changes: " + e1.getMessage());
-                                }}
+                                                           //System.out.println("uz to padne");
+                                                           DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
+                                                       } catch (SQLException e) {
+                                                           //System.out.println("Error executing queries: " + e.getMessage());
 
-                            }
-                     }
-                        catch (Exception e) {
+                                                           lbl_xmlFile.setText("Invalid Inputs");
+                                                           lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                                       }
 
-                            lbl_xmlFile.setText("Invalid Inputs");
-                            lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                            e.printStackTrace();
-                        }
-                    }
-                    else
-                    {
-                        lbl_xmlFile.setText("Missing Ingredients");
-                        lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                    }
-                }
-                else
-                {
-                    String testing = new String("Insert into public.recipe (account_id, name, food_type_id, time_to_cook, process) VALUES (" + GlobalVariableUser.getUserId() + "," + inputName + "," + choiceType +"," + inputTime + "'{\"key\": \"" + inputSteps + "\"}');\n");
+                                                   }
+                                               }
+                                               catch (Exception e) {
 
-                    lbl_xmlFile.setText("Missing data");
-                    lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                }
-            }
-        }
+                                                   lbl_xmlFile.setText("Invalid Inputs");
+                                                   lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                                   e.printStackTrace();
+                                               }
+                                           }
+                                           else
+                                           {
+                                               lbl_xmlFile.setText("Missing Ingredients");
+                                               lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                           }
+                                       }
+                                       else
+                                       {
+                                           //String testing = new String("Insert into public.recipe (account_id, name, food_type_id, time_to_cook, process) VALUES (" + GlobalVariableUser.getUserId() + "," + inputName + "," + choiceType +"," + inputTime + "'{\"key\": \"" + inputSteps + "\"}');\n");
+
+                                           lbl_xmlFile.setText("Missing data");
+                                           lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                       }
+                                   }
+                               }
         );
         btn_adding.setOnAction(event -> addNewChoiceBox());
+        //btn_adding.setOnAction(event -> addNewChoiceBoxWithScrollBar());
+
     }
 
     private void addNewChoiceBox() {
@@ -691,7 +709,9 @@ public class AddRecipeController implements Initializable {
         vbox_ingredients.getChildren().add(hbox);
     }
 
+
     private void addNewChoiceBox(String name, int amount) {
+
 
         HBox hbox = new HBox();
         hbox.setSpacing(10);
@@ -729,6 +749,9 @@ public class AddRecipeController implements Initializable {
         vbox_ingredients.getChildren().clear();
 
     }
+
+
+
 
 
 }
