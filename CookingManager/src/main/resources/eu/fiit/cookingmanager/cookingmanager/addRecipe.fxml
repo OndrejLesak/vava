@@ -48,7 +48,7 @@
       <Button fx:id="btn_recipe" layoutX="1216.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%save" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="btn_discard" layoutX="1145.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%discard" AnchorPane.rightAnchor="100.0" />
       <Button fx:id="btn_xmlFile" layoutX="123.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%choose_xml_file" />
-
+      <Button fx:id="btn_exampleFile" layoutX="123.0" layoutY="643.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="Pregenerate_XML" />
       <Label layoutX="14.0" layoutY="677.0" text="%XMLfile">
          <font>
             <Font name="System Bold Italic" size="14.0" />

@@ -24,6 +24,10 @@ import java.sql.SQLException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
@@ -42,6 +46,7 @@ public class AddRecipeController implements Initializable {
     @FXML private TextField inputName;
     @FXML private TextField inputTime;
     @FXML private TextArea inputSteps;
+    @FXML private Button btn_exampleFile;
     @FXML private Button btn_recipe;
     @FXML private VBox vbox_ingredients;
     @FXML private ChoiceBox choiceType;
@@ -283,6 +288,97 @@ public class AddRecipeController implements Initializable {
             }
         });
 
+        btn_exampleFile.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                try {
+                    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                    Document doc = dBuilder.newDocument();
+
+                    // Create the root element
+                    Element rootElement = doc.createElement("recipe");
+                    doc.appendChild(rootElement);
+
+                    // Create the child elements
+                    Element name = doc.createElement("name");
+                    name.appendChild(doc.createTextNode("Write name of the recipe here"));
+                    rootElement.appendChild(name);
+
+                    Element type = doc.createElement("type");
+                    type.appendChild(doc.createTextNode("Write type of food here"));
+                    rootElement.appendChild(type);
+
+                    Element time = doc.createElement("time");
+                    time.appendChild(doc.createTextNode("Write time to prepare here"));
+                    rootElement.appendChild(time);
+
+                    Element ingredients = doc.createElement("ingredients");
+                    rootElement.appendChild(ingredients);
+
+
+
+                    Element ingredient = doc.createElement("ingredient");
+                    Element ingredient_name = doc.createElement("ing_name");
+                    Element ingredient_amount = doc.createElement("ing_amount");
+
+                    ingredient_name.appendChild(doc.createTextNode("Write name of 1st ingredient here"));
+                    ingredient_amount.appendChild(doc.createTextNode("Write amount of 1st ingredient here"));
+
+                    ingredient.appendChild( ingredient_name);
+                    ingredient.appendChild( ingredient_amount);
+
+                    Element ingredient1 = doc.createElement("ingredient");
+                    Element ingredient_name1 = doc.createElement("ing_name");
+                    Element ingredient_amount1 = doc.createElement("ing_amount");
+
+                    ingredient_name1.appendChild(doc.createTextNode("Write name of 2nd ingredient here"));
+                    ingredient_amount1.appendChild(doc.createTextNode("Write amount of 2nd ingredient here"));
+
+                    ingredient1.appendChild( ingredient_name1);
+                    ingredient1.appendChild( ingredient_amount1);
+
+
+                    Element ingredient2 = doc.createElement("ingredient");
+                    Element ingredient_name2 = doc.createElement("ing_name");
+                    Element ingredient_amount2 = doc.createElement("ing_amount");
+
+                    ingredient2.appendChild(doc.createTextNode("You can append more ingredient after coppying this element"));
+                    ingredient_name2.appendChild(doc.createTextNode(""));
+                    ingredient_amount2.appendChild(doc.createTextNode(""));
+
+                    ingredient2.appendChild( ingredient_name2);
+                    ingredient2.appendChild( ingredient_amount2);
+
+
+
+
+                    ingredients.appendChild(ingredient);
+                    ingredients.appendChild(ingredient1);
+                    ingredients.appendChild(ingredient2);
+
+                    Element steps = doc.createElement("steps");
+                    rootElement.appendChild(steps);
+
+                    // Write the document to a file
+                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transformerFactory.newTransformer();
+                    DOMSource source = new DOMSource(doc);
+                    StreamResult result = new StreamResult(new File("Example_file.xml"));
+                    transformer.transform(source, result);
+
+                    //System.out.println("Empty XML file created successfully.");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+        });
+
         btn_back_home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -306,17 +402,17 @@ public class AddRecipeController implements Initializable {
             public void handle(ActionEvent actionEvent) {
 
 
-                System.out.print(inputName.getText());
-                System.out.print(inputTime.getText());
-                System.out.print(inputSteps.getText());
-                System.out.print(choiceType.getValue());
+                //System.out.print(inputName.getText());
+                //System.out.print(inputTime.getText());
+                //System.out.print(inputSteps.getText());
+                //System.out.print(choiceType.getValue());
 
-                System.out.println(vbox_ingredients.getChildren().size());
-                System.out.println(vbox_ingredients.getChildren());
+                //System.out.println(vbox_ingredients.getChildren().size());
+                //System.out.println(vbox_ingredients.getChildren());
                 if(!inputName.getText().equals("") && !inputTime.getText().equals("")  && !inputSteps.getText().equals("")  && !choiceType.getValue().equals(""))
                 {
 
-                    System.out.println(vbox_ingredients.getChildren());
+                    //.out.println(vbox_ingredients.getChildren());
 
 
                     if(vbox_ingredients.getChildren().size()>0)
@@ -338,7 +434,7 @@ public class AddRecipeController implements Initializable {
 
                         if (rs.next())
                         {
-                            System.out.println("This name is in DB");
+                            //System.out.println("This name is in DB");
                             lbl_xmlFile.setText("Name already claimed");
                             lbl_xmlFile.setTextFill(Color.color(1,0,0));
                             DBUtils.dbDisconnect(conn);
@@ -347,14 +443,14 @@ public class AddRecipeController implements Initializable {
                         {
                             DBUtils.dbDisconnect(conn);
                             //ak je volne meno atm vieme že to má aspoň 1ingredienciu resp jeden hbox už treba naukladať ingrediencie do jedneho poľa aby sme sa vyhli duplikatom a push do DB
-                            System.out.println("Free nieje v DB");
+                            //System.out.println("Free nieje v DB");
 
                             ObservableList<Node> children = vbox_ingredients.getChildren();
                             List<List<Object>> myArray = new ArrayList<>();
                             for (Node child : children) {
                                 //System.out.println(child);
                                 //.out.println(child);
-                                System.out.println("******");
+                                //System.out.println("******");
                                 int data = 0 ;
                                 Object data2 = null;
 
@@ -410,8 +506,8 @@ public class AddRecipeController implements Initializable {
                                         }
                                     }
                                 }
-                            System.out.println("dlzka pola");
-                            System.out.println(myArray.size());
+                            //System.out.println("dlzka pola");
+                            //System.out.println(myArray.size());
 
                             //treba zmazať z poľa jednotky
 
@@ -439,10 +535,10 @@ public class AddRecipeController implements Initializable {
                                 query = "SELECT id FROM public.food_type WHERE type='" + choiceType.getValue() + "'";
                                 pstmt = conn.prepareStatement(query);
                                 rs = pstmt.executeQuery();
-                                System.out.println("testing here");
+                                //System.out.println("testing here");
                                 rs.next();
                                 type_id = rs.getInt("id");
-                                System.out.println(type_id);
+                                //System.out.println(type_id);
                                 DBUtils.dbDisconnect(conn);
                                 }
                                 catch(Exception e ){}
@@ -461,16 +557,16 @@ public class AddRecipeController implements Initializable {
                                 statement.executeUpdate(testing);
                             conn.commit(); // commit the transaction
 
-                            System.out.println("All queries executed successfully");
+                            //System.out.println("All queries executed successfully");
 
                         } catch (SQLException e) {
-                            System.out.println("Error executing queries: " + e.getMessage());
+                            //System.out.println("Error executing queries: " + e.getMessage());
 
                             try {
                                 conn.rollback(); // rollback the transaction if an error occurs
-                                System.out.println("All changes rolled back successfully");
+                                //System.out.println("All changes rolled back successfully");
                             } catch (SQLException e1) {
-                                System.out.println("Error rolling back changes: " + e1.getMessage());
+                                //System.out.println("Error rolling back changes: " + e1.getMessage());
                             }}
 
 
@@ -511,21 +607,21 @@ public class AddRecipeController implements Initializable {
 
                                 conn.commit(); // commit the transaction
 
-                                System.out.println("All queries executed successfully");
+                                //System.out.println("All queries executed successfully");
 
                             } catch (SQLException e) {
-                                System.out.println("Error executing queries: " + e.getMessage());
+                                //System.out.println("Error executing queries: " + e.getMessage());
 
                                 try {
                                     conn.rollback(); // rollback the transaction if an error occurs
-                                    System.out.println("All changes rolled back successfully");
+                                    //System.out.println("All changes rolled back successfully");
                                 } catch (SQLException e1) {
-                                    System.out.println("Error rolling back changes: " + e1.getMessage());
+                                    //System.out.println("Error rolling back changes: " + e1.getMessage());
                                 }}
 
                             DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
-                            System.out.println("UserID");
-                            System.out.println(GlobalVariableUser.getAccountId());
+                            //System.out.println("UserID");
+                            //System.out.println(GlobalVariableUser.getAccountId());
 
                             /*
                             while (rs.next()) {
