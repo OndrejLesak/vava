@@ -121,7 +121,7 @@ public class AddRecipeController implements Initializable {
 
             lbl_xmlFile.setText("Database disconnected");
             lbl_xmlFile.setTextFill(Color.color(1,0,0));
-            e.printStackTrace();
+            logger.error(e.getMessage());
 
         }
 
@@ -152,7 +152,7 @@ public class AddRecipeController implements Initializable {
 
             lbl_xmlFile.setText("Database disconnected");
             lbl_xmlFile.setTextFill(Color.color(1,0,0));
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         btn_xmlFile.setOnAction(new EventHandler<ActionEvent>(){
@@ -270,7 +270,7 @@ public class AddRecipeController implements Initializable {
                     } catch (Exception e) {
                         lbl_xmlFile.setText("Invalid XML file");
                         lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                        e.printStackTrace();
+                        logger.error(e.getMessage());
 
                     }
                 }
@@ -371,7 +371,7 @@ public class AddRecipeController implements Initializable {
                     //System.out.println("Empty XML file created successfully.");
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                 }
             }
 
@@ -536,6 +536,7 @@ public class AddRecipeController implements Initializable {
                                                            DBUtils.dbDisconnect(conn);
                                                            //System.out.println("this try");
                                                        } catch (Exception e) {
+                                                           logger.error(e.getMessage());
                                                        }
 
                                                        String replacedString = inputSteps.getText().replace("\n", "\n");
@@ -574,6 +575,7 @@ public class AddRecipeController implements Initializable {
                                                                    //System.out.println("All changes rolled back successfully");
                                                                } catch (SQLException e1) {
                                                                    //System.out.println("Error rolling back changes: " + e1.getMessage());
+                                                                   logger.error(e.getMessage());
                                                                }
                                                            }
 
@@ -583,7 +585,7 @@ public class AddRecipeController implements Initializable {
 
                                                                String recipeIdQuery = new String("SELECT * FROM public.recipe WHERE name=(?)");
                                                                pstmt = conn.prepareStatement(recipeIdQuery);
-                                                               pstmt.setString(1, inputName.getText());
+                                                               pstmt.setString(1, inputName.getText().trim());
                                                                rs = pstmt.executeQuery();
                                                                rs.next();
                                                                recept_id = rs.getInt("id");
@@ -593,6 +595,7 @@ public class AddRecipeController implements Initializable {
 
                                                                lbl_xmlFile.setText("Invalid Inputs");
                                                                lbl_xmlFile.setTextFill(Color.color(1, 0, 0));
+                                                               logger.error(e.getMessage());
 
                                                            }
                                                            //sem treba ingrediencie narobiť Q v loope
@@ -603,9 +606,8 @@ public class AddRecipeController implements Initializable {
 //        String query = "INSERT INTO my_table (recipe_id, ingredient_id, ingredient_value) VALUES (?, ?, ?)";
 
                                                            try {
-                                                               System.out.println("sem to padne");
 
-                                                               String recipe_testing = new String("INSERT INTO public.ingredient_recipe (recipe_id, ingredient_id, pieces) VALUES (?, ?, ?)");
+                                                               String recipe_testing = new String("INSERT INTO public.ingredient_recipe (id, recipe_id, ingredient_id, pieces) VALUES (nextval(ingredient_recipe_id_seq), ?, ?, ?)");
                                                                //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID
                                                                conn = new DBUtils().dbConnect();
                                                                pstmt = conn.prepareStatement(recipe_testing);
@@ -620,37 +622,35 @@ public class AddRecipeController implements Initializable {
                                                                pstmt.executeBatch();
                                                                int[] updateCounts = pstmt.executeBatch();
 
-                                                               System.out.println(myArray.size());
-                                                               System.out.println(updateCounts.length);
-
-                                                               System.out.println("uz to padne");
                                                                DBUtils.changeScene(actionEvent, "home.fxml", "Cooking Manager", resourceBundle);
                                                            } catch (SQLException e) {
                                                                //System.out.println("Error executing queries: " + e.getMessage());
 
                                                                lbl_xmlFile.setText("Invalid Inputs");
                                                                lbl_xmlFile.setTextFill(Color.color(1, 0, 0));
+                                                               logger.error(e.getMessage());
                                                            }
 
                                                        }
                                                        else{
                                                            lbl_xmlFile.setText("Bad ingredients");
                                                            lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                                           logger.error("Bad ingredients");
                                                        }
 
                                                    }
                                                }
                                                catch (Exception e) {
-
                                                    lbl_xmlFile.setText("Invalid Inputs");
                                                    lbl_xmlFile.setTextFill(Color.color(1,0,0));
-                                                   e.printStackTrace();
+                                                   logger.error(e.getMessage());
                                                }
                                            }
                                            else
                                            {
                                                lbl_xmlFile.setText("Missing Ingredients");
                                                lbl_xmlFile.setTextFill(Color.color(1,0,0));
+                                               logger.error("Missing ingredients");
                                            }
                                        }
                                        else
@@ -733,9 +733,5 @@ public class AddRecipeController implements Initializable {
         vbox_ingredients.getChildren().clear();
 
     }
-
-
-
-
 
 }

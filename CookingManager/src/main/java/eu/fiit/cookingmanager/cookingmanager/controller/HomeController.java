@@ -157,6 +157,7 @@ public class HomeController implements Initializable {
                     recipe.setName(rs.getString("name"));
                     recipe.setTimeToCook(rs.getInt("time_to_cook"));
                     recipe.setFoodType(rs.getString("type"));
+                    recipe.setAccountId(rs.getInt("account_id"));
 
                 recipes.put(rs.getString("name"), recipe);
             }
@@ -170,7 +171,7 @@ public class HomeController implements Initializable {
                 // get author of the recipe
                 String accQuery = "SELECT u.\"name\", u.surname FROM account a" +
                         " JOIN \"user\" u ON u.id=a.user_id" +
-                        " WHERE a.id=?";
+                        " WHERE a.id=(?)";
 
                 PreparedStatement pstmtAuthor = conn.prepareStatement(accQuery);
                 pstmtAuthor.setInt(1, recipe.getAccountId());
@@ -178,6 +179,46 @@ public class HomeController implements Initializable {
 
                 // prepare presentation
                 buildRecipeListPanel(recipe, resourceBundle, rs, rsAuthor);
+                Pane recipePanel = new Pane();
+                recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand; -fx-border-radius: 15 15 15 15; -fx-border-color: #239c9c ");
+
+                // onClick event handler for recipes (opens recipe detail)
+                recipePanel.setOnMouseClicked(e -> {
+                    RecipeController.setRecipe(recipe.getId());
+                    DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+                });
+
+                  Text recipeName = new Text(recipe.getName());
+                      recipeName.setStyle("-fx-font: normal bold 23px 'sans-serif'");
+                      recipeName.setX(20.0);
+                      recipeName.setY(40.0);
+
+                  Text recipeType = new Text("Food type: " + recipe.getFoodType());
+                      recipeType.setStyle("-fx-font: normal 18px 'sans-serif'");
+                      recipeType.setX(20.0);
+                      recipeType.setY(70.0);
+
+                  Text timeToCook = new Text("Time to cook: " + recipe.getTimeToCook() + " min.");
+                      timeToCook.setStyle("-fx-font: normal 18px 'sans-serif'");
+                      timeToCook.setX(20.0);
+                      timeToCook.setY(100.0);
+
+                    Text author = new Text();
+                    if (rsAuthor.next()) {
+                        author.setText("Author: " + rsAuthor.getString("name") + " " + rsAuthor.getString("surname"));
+                    }
+                    else {
+                        author.setText("Author: Unknown");
+                    }
+
+                    author.setStyle("-fx-font: normal 18px 'sans-serif'");
+                    author.setX(750.0);
+                    author.setY(40.0);
+
+                    recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook, author); // add component to the Pane component
+
+                    recipeList.getChildren().add(recipePanel); // add new item to the Vbox
+                    recipeList.setStyle("-fx-background-color : white;");
           }
         }
         catch (SQLException | NullPointerException e) {
@@ -238,7 +279,7 @@ public class HomeController implements Initializable {
         if (rsAuthor != null) {
             Text author = new Text();
             if (rsAuthor.next()) {
-                author.setText("Author: " + rs.getString("name") + " " + rs.getString("surname"));
+                author.setText("Author: " + rsAuthor.getString("name") + " " + rsAuthor.getString("surname"));
             } else {
                 author.setText("Author: Unknown");
             }
@@ -268,6 +309,7 @@ public class HomeController implements Initializable {
             }
 
             // set items for the ComboBox
+            filterByType.getItems().add(null);
             filterByType.setItems(FXCollections.observableArrayList(recipeTypes));
         } catch (SQLException e) {
             e.printStackTrace();

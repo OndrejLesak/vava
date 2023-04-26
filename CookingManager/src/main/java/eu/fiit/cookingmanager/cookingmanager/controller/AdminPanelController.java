@@ -10,6 +10,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -25,6 +27,8 @@ public class AdminPanelController implements Initializable {
     //@FXML public VBox usersList;
     @FXML private Button btn_logout;
     @FXML private Button btn_back;
+
+    private final static Logger logger = LogManager.getLogger(AdminPanelController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,12 +48,12 @@ public class AdminPanelController implements Initializable {
             while (rs.next()) {
                 User user = new User();
 
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setSurname(rs.getString("surname"));
+                user.setName(rs.getString("name").trim());
+                user.setEmail(rs.getString("email").trim());
+                user.setSurname(rs.getString("surname").trim());
                 user.setUserTypeId(rs.getInt("user_type_id"));
 
-                users.put(rs.getString("name"), user);
+                users.put(rs.getString("name").trim(), user);
             }
 
             for (String recipeKey : users.keySet()) {
@@ -101,13 +105,13 @@ public class AdminPanelController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         //user,account(user_id), plan(account_id), recipe(account_id), ingredient_recipe(recipe_id)
-
+                        logger.info(String.format("Admin requested to delete user %s %s", user.getName(), user.getSurname()));
                         try {
                             int user_id = 0;
                             int account_id = 0;
                             String query = "SELECT * FROM public.user WHERE name=(?)";
                             PreparedStatement pstmt = conn.prepareStatement(query);
-                            pstmt.setString(1, user.getName());
+                            pstmt.setString(1, user.getName().trim());
                             ResultSet rs = pstmt.executeQuery();
 
                             while (rs.next()) {
@@ -175,7 +179,7 @@ public class AdminPanelController implements Initializable {
                             DBUtils.changeScene(actionEvent, "adminPanel.fxml", "Admin Panel", resourceBundle);
 
                         } catch (SQLException e) {
-                            throw new RuntimeException(e);
+                            logger.error(e.getMessage());
                         }
                     }
                 });
@@ -189,12 +193,13 @@ public class AdminPanelController implements Initializable {
             usersScroll.setContent(usersList);
         }
         catch (SQLException | NullPointerException e) {
-            System.out.println("hahah");
+            logger.error(e.getMessage());
         }
 
         btn_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User logged out of the application");
                 DBUtils.changeScene(actionEvent, "login.fxml", resourceBundle.getString("login_title"),  resourceBundle);
             }
         });
@@ -202,6 +207,7 @@ public class AdminPanelController implements Initializable {
         btn_back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                logger.info("User requeted to go back to the home screen");
                 DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
             }
         });

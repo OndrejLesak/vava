@@ -6,7 +6,7 @@
 
     <groupId>eu.fiit.cookingmanager</groupId>
     <artifactId>CookingManager</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>CookingManager</name>
 
     <properties>
@@ -107,7 +107,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                eu.fiit.cookingmanager.cookingmanager/eu.fiit.cookingmanager.cookingmanager.CookingManager
+                                eu.fiit.cookingmanager.cookingmanager.CookingManager
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
@@ -118,6 +118,19 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>
+                                eu.fiit.cookingmanager.cookingmanager.CookingManager
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>
