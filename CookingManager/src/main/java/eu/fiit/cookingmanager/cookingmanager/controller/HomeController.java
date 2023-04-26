@@ -2,16 +2,12 @@ package eu.fiit.cookingmanager.cookingmanager.controller;
 
 import eu.fiit.cookingmanager.cookingmanager.repository.entity.Recipe;
 import eu.fiit.cookingmanager.cookingmanager.utils.DBUtils;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -40,8 +36,8 @@ public class HomeController implements Initializable {
     @FXML private ScrollPane recipeScroll;
     @FXML private TextField searchTextField;
     @FXML private Button searchButton;
-
-    public String username ;
+    @FXML
+    private ComboBox<String> filterByType;
 
     private final static Logger logger = LogManager.getLogger(HomeController.class);
 
@@ -51,14 +47,16 @@ public class HomeController implements Initializable {
         recipeScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         recipeScroll.setStyle("-fx-background-color: transparent");
         lbl_name.setText(GlobalVariableUser.getName());
+
         if (GlobalVariableUser.getType() == 1){
             btn_addRecipe.setVisible(false);
             btn_adminPanel.setVisible(false);
         } else if (GlobalVariableUser.getType() == 2) {
             btn_adminPanel.setVisible(false);
         }
-        loadRecipes(resourceBundle);
 
+        loadRecipes(resourceBundle);
+        fetchRecipeTypes();
 
         btn_loggout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -83,19 +81,19 @@ public class HomeController implements Initializable {
             }
         });
 
-        searchButton.setOnAction(e -> {
-            String searchText = searchTextField.getText();
-            filterRecipes(resourceBundle, searchText);
+        searchButton.setOnAction(event -> {
+            String searchText = searchTextField.getText().trim();
+            String selectedType = filterByType.getSelectionModel().getSelectedItem();
+            filterRecipes(resourceBundle, searchText, selectedType);
         });
     }
 
-    private void filterRecipes(ResourceBundle resourceBundle, String searchText) {
+    private void filterRecipes(ResourceBundle resourceBundle, String searchText, String recipeType) {
+        DBUtils dbUtils = new DBUtils();
         try {
-            Connection conn = new DBUtils().dbConnect();
-            String query = "SELECT r.id, r.name, r.account_id, r.time_to_cook, ft.type FROM recipe r" +
-                    " JOIN food_type ft ON ft.id = r.food_type_id";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery();
+            Connection conn = dbUtils.dbConnect();
+            ResultSet rs = loadQueryResult(conn, "SELECT r.id, r.name, r.account_id, r.time_to_cook, ft.type FROM recipe r" +
+                    " JOIN food_type ft ON ft.id = r.food_type_id");
 
             List<Recipe> allRecipes = new ArrayList<>();
             while (rs.next()) {
@@ -114,40 +112,26 @@ public class HomeController implements Initializable {
 
             for (Recipe recipe : allRecipes) {
                 Matcher matcher = pattern.matcher(recipe.getName());
-                if (matcher.find()) {
-                    Pane recipePanel = new Pane();
-                    recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px;");
+                boolean nameMatches = matcher.find();
+                boolean typeMatches = (recipeType == null || recipeType.isEmpty()) || recipeType.equals(recipe.getFoodType());
 
-                    recipePanel.setOnMouseClicked(e -> {
-                        RecipeController.setRecipe(recipe.getId());
-                        DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
-                    });
+                if (nameMatches && typeMatches) {
+                    // get author of the recipe
+                    String accQuery = "SELECT u.\"name\", u.surname FROM account a" +
+                            " JOIN \"user\" u ON u.id=a.user_id" +
+                            " WHERE a.id=?";
 
-                    Text recipeName = new Text(recipe.getName());
-                    recipeName.setStyle("-fx-font: normal bold 23px 'sans-serif'");
-                    recipeName.setX(20.0);
-                    recipeName.setY(40.0);
+                    PreparedStatement pstmtAuthor = conn.prepareStatement(accQuery);
+                    pstmtAuthor.setInt(1, recipe.getAccountId());
+                    ResultSet rsAuthor = pstmtAuthor.executeQuery();
 
-                    Text recipeType = new Text("Food type: " + recipe.getFoodType());
-                    recipeType.setStyle("-fx-font: normal 18px 'sans-serif'");
-                    recipeType.setX(20.0);
-                    recipeType.setY(70.0);
-
-                    Text timeToCook = new Text("Time to cook: " + recipe.getTimeToCook() + " min.");
-                    timeToCook.setStyle("-fx-font: normal 18px 'sans-serif'");
-                    timeToCook.setX(20.0);
-                    timeToCook.setY(100.0);
-
-                    recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook);
-
-                    recipeList.getChildren().add(recipePanel);
+                    buildRecipeListPanel(recipe, resourceBundle, rs, rsAuthor);
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -157,12 +141,8 @@ public class HomeController implements Initializable {
 
         try {
             Connection conn = dbUtils.dbConnect();
-
-            String query = "SELECT r.id, r.name, r.account_id, r.time_to_cook, ft.type FROM recipe r" +
-                    " JOIN food_type ft ON ft.id = r.food_type_id";
-
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = loadQueryResult(conn, "SELECT r.id, r.name, r.account_id, r.time_to_cook, ft.type FROM recipe r" +
+                            " JOIN food_type ft ON ft.id = r.food_type_id");
 
             // load data to hash-map for quicker search time
             while (rs.next()) {
@@ -190,54 +170,88 @@ public class HomeController implements Initializable {
                 pstmtAuthor.setInt(1, recipe.getAccountId());
                 ResultSet rsAuthor = pstmtAuthor.executeQuery();
 
-
                 // prepare presentation
-                Pane recipePanel = new Pane();
-                recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand; -fx-border-radius: 15 15 15 15; -fx-border-color: #239c9c ");
-
-                // onClick event handler for recipes (opens recipe detail)
-                recipePanel.setOnMouseClicked(e -> {
-                    RecipeController.setRecipe(recipe.getId());
-                    DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
-                });
-
-                  Text recipeName = new Text(recipe.getName());
-                      recipeName.setStyle("-fx-font: normal bold 23px 'sans-serif'");
-                      recipeName.setX(20.0);
-                      recipeName.setY(40.0);
-
-                  Text recipeType = new Text("Food type: " + recipe.getFoodType());
-                      recipeType.setStyle("-fx-font: normal 18px 'sans-serif'");
-                      recipeType.setX(20.0);
-                      recipeType.setY(70.0);
-
-                  Text timeToCook = new Text("Time to cook: " + recipe.getTimeToCook() + " min.");
-                      timeToCook.setStyle("-fx-font: normal 18px 'sans-serif'");
-                      timeToCook.setX(20.0);
-                      timeToCook.setY(100.0);
-
-                    Text author = new Text();
-                    if (rsAuthor.next()) {
-                        author.setText("Author: " + rs.getString("name") + " " + rs.getString("surname"));
-                    }
-                    else {
-                        author.setText("Author: Unknown");
-                    }
-
-                    author.setStyle("-fx-font: normal 18px 'sans-serif'");
-                    author.setX(750.0);
-                    author.setY(40.0);
-
-                  recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook, author); // add component to the Pane component
-
-                  recipeList.getChildren().add(recipePanel); // add new item to the Vbox
-                    recipeList.setStyle("-fx-background-color : white;");
+                buildRecipeListPanel(recipe, resourceBundle, rs, rsAuthor);
           }
         }
         catch (SQLException | NullPointerException e) {
             logger.error(e.getMessage());
         }
 
+    }
+
+    private void buildRecipeListPanel(Recipe recipe, ResourceBundle resourceBundle, ResultSet rs, ResultSet rsAuthor) throws SQLException {
+        Pane recipePanel = new Pane();
+        recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand; -fx-border-radius: 15 15 15 15; -fx-border-color: #239c9c ");
+
+        // onClick event handler for recipes (opens recipe detail)
+        recipePanel.setOnMouseClicked(e -> {
+            RecipeController.setRecipe(recipe.getId());
+            DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+        });
+
+        Text recipeName = new Text(recipe.getName());
+        recipeName.setStyle("-fx-font: normal bold 23px 'sans-serif'");
+        recipeName.setX(20.0);
+        recipeName.setY(40.0);
+
+        Text recipeType = new Text("Food type: " + recipe.getFoodType());
+        recipeType.setStyle("-fx-font: normal 18px 'sans-serif'");
+        recipeType.setX(20.0);
+        recipeType.setY(70.0);
+
+        Text timeToCook = new Text("Time to cook: " + recipe.getTimeToCook() + " min.");
+        timeToCook.setStyle("-fx-font: normal 18px 'sans-serif'");
+        timeToCook.setX(20.0);
+        timeToCook.setY(100.0);
+
+        if (rsAuthor != null) {
+            Text author = new Text();
+            if (rsAuthor.next()) {
+                author.setText("Author: " + rs.getString("name") + " " + rs.getString("surname"));
+            } else {
+                author.setText("Author: Unknown");
+            }
+            author.setStyle("-fx-font: normal 18px 'sans-serif'");
+            author.setX(750.0);
+            author.setY(40.0);
+
+            recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook, author); // add component to the Pane component
+        } else {
+            recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook);
+        }
+
+        recipeList.getChildren().add(recipePanel); // add new item to the Vbox
+        recipeList.setStyle("-fx-background-color : white;");
+    }
+
+    public void fetchRecipeTypes() {
+        DBUtils dbUtils = new DBUtils();
+        try {
+            Connection conn = dbUtils.dbConnect();
+            ResultSet rs = loadQueryResult(conn, "SELECT DISTINCT type FROM food_type");
+
+            List<String> recipeTypes = new ArrayList<>();
+            while (rs.next()) {
+                String type = rs.getString("type");
+                recipeTypes.add(type);
+            }
+
+            // set items for the ComboBox
+            filterByType.setItems(FXCollections.observableArrayList(recipeTypes));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ResultSet loadQueryResult(Connection conn, String query){
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
