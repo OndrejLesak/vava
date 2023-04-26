@@ -554,7 +554,7 @@ public class AddRecipeController implements Initializable {
                                 catch(Exception e ){}
 
                             String replacedString = inputSteps.getText().replace("\n", "\\n");
-                            String testing = new String("Insert into public.recipe (account_id, name, food_type_id, time_to_cook, process) VALUES (" + GlobalVariableUser.getUserId() + ",'" + inputName.getText() + "'," + type_id +"," + inputTime.getText() + ", '{\"key\": \"" + replacedString + "\"}')");
+                            String testing = new String("Insert into public.recipe (account_id, name, food_type_id, time_to_cook, process) VALUES (" + GlobalVariableUser.getAccountId() + ",'" + inputName.getText() + "'," + type_id +"," + inputTime.getText() + ", '{\"key\": \"" + replacedString + "\"}')");
                             //testing je query čo pridá recept base do queries
 
                             //v myArray mám atm uložene System.out.println(myArray.get(au).get(0)); index 0 ingrediencia,1množstvo,2je ID

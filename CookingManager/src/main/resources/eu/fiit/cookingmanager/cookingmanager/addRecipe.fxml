@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.AddRecipeController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.AddRecipeController">
    <children>
       <TextField fx:id="inputName" layoutX="128.0" layoutY="58.0" promptText="%recipe_name_choose" />
       <ChoiceBox fx:id="choiceType" layoutX="128.0" layoutY="94.0" prefWidth="150.0" />
@@ -46,16 +39,16 @@
       </Label>
       <TextField fx:id="inputTime" layoutX="127.0" layoutY="132.0" prefHeight="26.0" prefWidth="59.0" promptText="%minutes" />
 
-      <Button fx:id="btn_exampleFile" layoutX="264.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%pregenerate_xml" />
+      <Button fx:id="btn_exampleFile" layoutX="128.0" layoutY="672.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%pregenerate_xml" />
       <Button fx:id="btn_recipe" layoutX="1216.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%save" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="btn_discard" layoutX="1145.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%discard" AnchorPane.rightAnchor="100.0" />
-      <Button fx:id="btn_xmlFile" layoutX="123.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%choose_xml_file" />
+      <Button fx:id="btn_xmlFile" layoutX="270.0" layoutY="672.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%choose_xml_file" />
       <Label layoutX="14.0" layoutY="677.0" text="%XMLfile">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_xmlFile" layoutX="231.0" layoutY="677.0" />
+      <Label fx:id="lbl_xmlFile" layoutX="409.0" layoutY="678.0" prefHeight="17.0" prefWidth="175.0" />
       <ButtonBar prefHeight="54.0" prefWidth="1280.0" style="-fx-background-color: rgb(255, 115, 0);">
          <padding>
             <Insets right="10.0" />

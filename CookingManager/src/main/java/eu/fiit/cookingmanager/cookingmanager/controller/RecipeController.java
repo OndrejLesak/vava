@@ -61,7 +61,7 @@ public class RecipeController implements Initializable {
                 rs = pstmt.executeQuery();
 
                 while (rs.next()) {
-                    txt_recipeType.setText(rs.getString("type"));
+                    txt_recipeType.setText(rs.getString("type").trim());
                 }
             }
 
@@ -123,7 +123,7 @@ public class RecipeController implements Initializable {
             public void handle(ActionEvent actionEvent) {
                 //vymazat recipe ako admin
                 //recipe, ingredient_recipe, plan
-                System.out.println(recipe_id);
+                logger.info(String.format("Administrator requested to delete recipe number %d", recipe_id));
                 try {
                     String query = "SELECT * FROM public.plan WHERE recipe_id=(?)";
                     PreparedStatement pstmt = conn.prepareStatement(query);
@@ -156,7 +156,7 @@ public class RecipeController implements Initializable {
                     DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
 
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    logger.error(e.getMessage());
                 }
 
             }
