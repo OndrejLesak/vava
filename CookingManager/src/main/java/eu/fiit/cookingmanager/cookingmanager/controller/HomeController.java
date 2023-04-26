@@ -309,8 +309,9 @@ public class HomeController implements Initializable {
             }
 
             // set items for the ComboBox
-            filterByType.getItems().add(null);
             filterByType.setItems(FXCollections.observableArrayList(recipeTypes));
+            filterByType.getItems().add(null);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
