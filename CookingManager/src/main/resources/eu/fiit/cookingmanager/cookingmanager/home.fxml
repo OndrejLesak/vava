@@ -6,13 +6,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.fiit.cookingmanager.cookingmanager.controller.HomeController">
    <children>
       <HBox layoutX="1089.0" layoutY="10.0" prefHeight="25.0" prefWidth="178.0" spacing="20.0" AnchorPane.rightAnchor="110.0" />
@@ -40,13 +40,14 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="recipeScroll" layoutX="184.0" layoutY="128.0" prefHeight="499.0" prefWidth="938.0">
-         <VBox fx:id="recipeList" minHeight="499.0" minWidth="936.0" spacing="5" />
+      <ScrollPane fx:id="recipeScroll" layoutX="60.0" layoutY="135.0" prefHeight="571.0" prefWidth="1160.0">
+         <VBox fx:id="recipeList" minHeight="499.0" prefHeight="569.0" prefWidth="1149.0" spacing="5" />
       </ScrollPane>
-      <ButtonBar layoutY="-6.0" prefHeight="54.0" prefWidth="1280.0" style="-fx-background-color: rgb(255, 115, 0);">
+      <ButtonBar layoutY="-6.0" prefHeight="50.0" prefWidth="1280.0" style="-fx-background-color: rgb(255, 115, 0);">
         <buttons>
-            <Button fx:id="btn_addRecipe" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-cursor: hand;" text="%create_recipe" wrapText="true" />
-            <Button fx:id="btn_loggout" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" />
+            <Button fx:id="btn_adminPanel" mnemonicParsing="false" stylesheets="@../../../../css/style.css" text="Admin Panel" />
+            <Button fx:id="btn_addRecipe" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%create_recipe" wrapText="true" />
+            <Button fx:id="btn_loggout" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%logout" />
         </buttons>
          <padding>
             <Insets right="10.0" />

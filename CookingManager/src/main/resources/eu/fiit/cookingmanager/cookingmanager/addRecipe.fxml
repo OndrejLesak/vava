@@ -31,7 +31,7 @@
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btn_adding" layoutX="773.0" layoutY="59.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%add_ingredient" />
+      <Button fx:id="btn_adding" layoutX="773.0" layoutY="59.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%add_ingredient" />
       <TextArea fx:id="inputSteps" layoutX="126.0" layoutY="186.0" prefHeight="465.0" prefWidth="458.0" />
       <Label layoutX="14.0" layoutY="176.0" text="%steps">
 
@@ -45,10 +45,11 @@
          </font>
       </Label>
       <TextField fx:id="inputTime" layoutX="127.0" layoutY="132.0" prefHeight="26.0" prefWidth="59.0" promptText="%minutes" />
-      <Button fx:id="btn_recipe" layoutX="1216.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%save" AnchorPane.rightAnchor="20.0" />
-      <Button fx:id="btn_discard" layoutX="1145.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%discard" AnchorPane.rightAnchor="100.0" />
-      <Button fx:id="btn_xmlFile" layoutX="123.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%choose_xml_file" />
-      <Button fx:id="btn_exampleFile" layoutX="123.0" layoutY="643.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="Pregenerate_XML" />
+
+      <Button fx:id="btn_exampleFile" layoutX="264.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%pregenerate_xml" />
+      <Button fx:id="btn_recipe" layoutX="1216.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%save" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="btn_discard" layoutX="1145.0" layoutY="685.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%discard" AnchorPane.rightAnchor="100.0" />
+      <Button fx:id="btn_xmlFile" layoutX="123.0" layoutY="673.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%choose_xml_file" />
       <Label layoutX="14.0" layoutY="677.0" text="%XMLfile">
          <font>
             <Font name="System Bold Italic" size="14.0" />
@@ -60,9 +61,9 @@
             <Insets right="10.0" />
          </padding>
          <buttons>
-            <Button fx:id="btn_back_home" mnemonicParsing="false" style="-fx-cursor: hand;" text="%back" />
+            <Button fx:id="btn_back_home" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%back" />
       
-            <Button fx:id="btn_logout" mnemonicParsing="false" style="-fx-cursor: hand;" text="%logout" />
+            <Button fx:id="btn_logout" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%logout" />
          </buttons>
       </ButtonBar>
       <ScrollPane fitToWidth="true" layoutX="773.0" layoutY="107.0" prefHeight="555.0" prefWidth="383.0" vbarPolicy="AS_NEEDED">

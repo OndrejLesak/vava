@@ -26,7 +26,7 @@
          <Font size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="btn_signup" layoutX="584.0" layoutY="622.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="%sign_up_title">
+   <Button fx:id="btn_signup" layoutX="584.0" layoutY="622.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%sign_up_title">
       <font>
          <Font name="System Bold Italic" size="14.0" />
       </font>

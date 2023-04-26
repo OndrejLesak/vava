@@ -32,18 +32,14 @@ import java.util.regex.Pattern;
 
 public class HomeController implements Initializable {
 
+    @FXML public Button btn_adminPanel;
     @FXML private Button btn_loggout;
     @FXML private Button btn_addRecipe;
     @FXML private Label lbl_name;
     @FXML private VBox recipeList;
-
-    @FXML
-    private ScrollPane recipeScroll;
-
-    @FXML
-    private TextField searchTextField;
-    @FXML
-    private Button searchButton;
+    @FXML private ScrollPane recipeScroll;
+    @FXML private TextField searchTextField;
+    @FXML private Button searchButton;
 
     public String username ;
 
@@ -57,6 +53,9 @@ public class HomeController implements Initializable {
         lbl_name.setText(GlobalVariableUser.getName());
         if (GlobalVariableUser.getType() == 1){
             btn_addRecipe.setVisible(false);
+            btn_adminPanel.setVisible(false);
+        } else if (GlobalVariableUser.getType() == 2) {
+            btn_adminPanel.setVisible(false);
         }
         loadRecipes(resourceBundle);
 
@@ -74,6 +73,13 @@ public class HomeController implements Initializable {
             public void handle(ActionEvent actionEvent) {
                 logger.info("User requested to create a new recipe");
                 DBUtils.changeScene(actionEvent, "addRecipe.fxml", resourceBundle.getString("add_recipe_title"), resourceBundle);
+            }
+        });
+
+        btn_adminPanel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                DBUtils.changeScene(actionEvent, "adminPanel.fxml", "Admin Panel", resourceBundle);
             }
         });
 
@@ -141,6 +147,7 @@ public class HomeController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -175,7 +182,7 @@ public class HomeController implements Initializable {
                 Recipe recipe = recipes.get(recipeKey);
 
                 Pane recipePanel = new Pane();
-                recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand");
+                recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand; -fx-border-radius: 15 15 15 15; -fx-border-color: #239c9c ");
 
                 // onClick event handler for recipes (opens recipe detail)
                 recipePanel.setOnMouseClicked(e -> {
@@ -206,6 +213,7 @@ public class HomeController implements Initializable {
               recipePanel.getChildren().addAll(recipeName, recipeType, timeToCook, author); // add component to the Pane component
 
               recipeList.getChildren().add(recipePanel); // add new item to the Vbox
+                recipeList.setStyle("-fx-background-color : white;");
           }
         }
         catch (SQLException | NullPointerException e) {

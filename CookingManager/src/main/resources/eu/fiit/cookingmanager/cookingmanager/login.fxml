@@ -25,7 +25,7 @@
          <Font size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="btn_login" layoutX="606.0" layoutY="480.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="134.0" style="-fx-cursor: hand;" text="%login">
+   <Button fx:id="btn_login" layoutX="606.0" layoutY="480.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="134.0" style="-fx-cursor: hand;" stylesheets="@../../../../css/style.css" text="%login">
       <font>
          <Font name="System Bold Italic" size="14.0" />
       </font>

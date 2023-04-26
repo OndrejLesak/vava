@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
@@ -23,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class RecipeController implements Initializable {
 
-    private static int food_id;
+    private static int recipe_id;
 
     @FXML TextField txt_recipeName;
     @FXML TextField txt_recipeType;
@@ -33,9 +32,9 @@ public class RecipeController implements Initializable {
     @FXML Button btn_logout;
     @FXML Button btn_createList;
     @FXML Button btn_save;
+    @FXML Button btn_delete;
 
     private final static Logger logger = LogManager.getLogger(RecipeController.class);
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,7 +45,7 @@ public class RecipeController implements Initializable {
         try {
             String query = "SELECT * FROM public.recipe WHERE id=(?)";
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1, food_id);
+            pstmt.setInt(1, recipe_id);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -72,6 +71,7 @@ public class RecipeController implements Initializable {
                 txt_recipeType.setEditable(true);
                 txt_steps.setEditable(true);
                 btn_save.setVisible(true);
+                btn_delete.setVisible(true);
                 txt_recipeName.setFont(Font.font("System", FontWeight.NORMAL, 12));
                 txt_recipeTime.setFont(Font.font("System", FontWeight.NORMAL, 12));
                 txt_recipeType.setFont(Font.font("System", FontWeight.NORMAL, 12));
@@ -83,6 +83,7 @@ public class RecipeController implements Initializable {
                 txt_recipeType.setEditable(false);
                 txt_steps.setEditable(false);
                 btn_save.setVisible(false);
+                btn_delete.setVisible(false);
                 txt_recipeName.setFont(Font.font("System", FontWeight.BOLD, 12));
                 txt_recipeTime.setFont(Font.font("System", FontWeight.BOLD, 12));
                 txt_recipeType.setFont(Font.font("System", FontWeight.BOLD, 12));
@@ -117,9 +118,53 @@ public class RecipeController implements Initializable {
             }
         });
 
+        btn_delete.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //vymazat recipe ako admin
+                //recipe, ingredient_recipe, plan
+                System.out.println(recipe_id);
+                try {
+                    String query = "SELECT * FROM public.plan WHERE recipe_id=(?)";
+                    PreparedStatement pstmt = conn.prepareStatement(query);
+                    pstmt.setInt(1, recipe_id);
+                    ResultSet rs = pstmt.executeQuery();
+
+                    while (rs.next()) {
+                        query = "DELETE FROM public.plan WHERE recipe_id=(?)";
+                        pstmt = conn.prepareStatement(query);
+                        pstmt.setInt(1, recipe_id);
+                        pstmt.executeUpdate();
+                    }
+
+                    query = "SELECT * FROM public.ingredient_recipe WHERE recipe_id=(?)";
+                    pstmt = conn.prepareStatement(query);
+                    pstmt.setInt(1, recipe_id);
+                    rs = pstmt.executeQuery();
+
+                    while (rs.next()) {
+                        query = "DELETE FROM public.ingredient_recipe WHERE recipe_id=(?)";
+                        pstmt = conn.prepareStatement(query);
+                        pstmt.setInt(1, recipe_id);
+                        pstmt.executeUpdate();
+                    }
+
+                    query = "DELETE FROM public.recipe WHERE id=(?)";
+                    pstmt = conn.prepareStatement(query);
+                    pstmt.setInt(1, recipe_id);
+                    pstmt.executeUpdate();
+                    DBUtils.changeScene(actionEvent, "home.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
+
     }
 
     public static void setRecipe(int id){
-        food_id = id;
+        recipe_id = id;
     }
 }
