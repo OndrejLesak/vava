@@ -189,11 +189,35 @@ public class HomeController implements Initializable {
     private void buildRecipeListPanel(Recipe recipe, ResourceBundle resourceBundle, ResultSet rs, ResultSet rsAuthor) throws SQLException {
         Pane recipePanel = new Pane();
         recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand; -fx-border-radius: 15 15 15 15; -fx-border-color: #239c9c ");
+        DBUtils dbUtils = new DBUtils();
 
         // onClick event handler for recipes (opens recipe detail)
         recipePanel.setOnMouseClicked(e -> {
-            RecipeController.setRecipe(recipe.getId());
-            DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+
+            int account_id = 0;
+            try {
+                Connection conn = dbUtils.dbConnect();
+                String q = "SELECT * FROM public.recipe WHERE id=(?)";
+                PreparedStatement p = conn.prepareStatement(q);
+                p.setInt(1, recipe.getId());
+                ResultSet r = p.executeQuery();
+
+                while (r.next()) {
+                    account_id = r.getInt("account_id");
+                }
+                System.out.println(account_id);
+                if (account_id == GlobalVariableUser.getAccountId() || GlobalVariableUser.getLogin().equals("admin")) {
+                    UpdateRecipeController.setRecipe(recipe.getId());
+                    UpdateRecipeController.setRecipeDetails(recipe);
+                    DBUtils.changeScene(e, "updateRecipe.fxml", resourceBundle.getString("add_recipe_title"), resourceBundle);
+                }
+                else {
+                    RecipeController.setRecipe(recipe.getId());
+                    DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+                }
+            } catch (SQLException ee) {
+                logger.error(ee.getMessage());
+            }
         });
 
         Text recipeName = new Text(recipe.getName());
