@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,6 +53,9 @@ public class HomeController implements Initializable {
         recipeScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         recipeScroll.setStyle("-fx-background-color: transparent");
         lbl_name.setText(GlobalVariableUser.getName());
+        searchButton.setStyle("-fx-background-color : #239c9c; -fx-background-radius : 15 15 15 15; -fx-text-fill: white;");
+        searchButton.setOnMouseEntered(e -> searchButton.setStyle("-fx-background-color : #07f7f7; -fx-background-radius : 15 15 15 15; -fx-text-fill: black;"));
+        searchButton.setOnMouseExited(e -> searchButton.setStyle("-fx-background-color : #239c9c; -fx-background-radius : 15 15 15 15; -fx-text-fill: white;"));
         if (GlobalVariableUser.getType() == 1){
             btn_addRecipe.setVisible(false);
             btn_adminPanel.setVisible(false);
@@ -116,11 +121,30 @@ public class HomeController implements Initializable {
                 Matcher matcher = pattern.matcher(recipe.getName());
                 if (matcher.find()) {
                     Pane recipePanel = new Pane();
-                    recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px;");
+                    recipePanel.setStyle("-fx-background-color: #fff; -fx-padding: 20px; -fx-cursor: hand; -fx-border-radius: 15 15 15 15; -fx-border-color: #239c9c ");
 
                     recipePanel.setOnMouseClicked(e -> {
+                        int account_id = 0;
                         RecipeController.setRecipe(recipe.getId());
-                        DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+                        try {
+                            String q = "SELECT * FROM public.recipe WHERE id=(?)";
+                            PreparedStatement p = conn.prepareStatement(q);
+                            p.setInt(1, recipe.getId());
+                            ResultSet r = p.executeQuery();
+
+                            while (r.next()) {
+                                account_id = r.getInt("account_id");
+                            }
+
+                            if (account_id == GlobalVariableUser.getAccountId() || GlobalVariableUser.getLogin().equals("admin")) {
+                                DBUtils.changeScene(e, "addRecipe.fxml", resourceBundle.getString("add_recipe_title"), resourceBundle);
+                            }
+                            else {
+                                DBUtils.changeScene(e, "recipe.fxml", resourceBundle.getString("cooking_manager"), resourceBundle);
+                            }
+                        } catch (SQLException ee) {
+                            logger.error(ee.getMessage());
+                        }
                     });
 
                     Text recipeName = new Text(recipe.getName());
