@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,6 +49,10 @@ public class HomeController implements Initializable {
         recipeScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         recipeScroll.setStyle("-fx-background-color: transparent");
         lbl_name.setText(GlobalVariableUser.getName());
+
+        searchButton.setStyle("-fx-background-color : #239c9c; -fx-background-radius : 15 15 15 15; -fx-text-fill: white;");
+        searchButton.setOnMouseEntered(e -> searchButton.setStyle("-fx-background-color : #07f7f7; -fx-background-radius : 15 15 15 15; -fx-text-fill: black;"));
+        searchButton.setOnMouseExited(e -> searchButton.setStyle("-fx-background-color : #239c9c; -fx-background-radius : 15 15 15 15; -fx-text-fill: white;"));
 
         if (GlobalVariableUser.getType() == 1){
             btn_addRecipe.setVisible(false);
